@@ -1,0 +1,34 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>Escríbenos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <form [formGroup]="form">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label position="stacked">Correo <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="email" formControlName="email"></ion-input>
+        <app-field-error-display [displayError]="isFieldInvalid(form.controls.email)" [errorMsg]="getFieldError(form.controls.email)"></app-field-error-display>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Asunto <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="text" formControlName="asunto" ></ion-input>
+        <app-field-error-display [displayError]="isFieldInvalid(form.controls.asunto)" [errorMsg]="getFieldError(form.controls.asunto)"></app-field-error-display>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Mensaje <ion-text color="danger">*</ion-text></ion-label>
+        <ion-textarea formControlName="mensaje" required rows="12" ></ion-textarea>
+        <app-field-error-display [displayError]="isFieldInvalid(form.controls.mensaje)" [errorMsg]="getFieldError(form.controls.mensaje)"></app-field-error-display>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding">
+      <ion-button expand="block" (click)="enviarMensaje()"
+      [disabled]="!this.form.valid" class="ion-no-margin">Enviar mensaje</ion-button>
+    </div>
+  </form>
+</ion-content>

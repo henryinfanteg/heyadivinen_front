@@ -1,0 +1,15 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-subtitle>Categoría: {{objCategoria.descripcion}}</ion-card-subtitle>
+    <ion-card-title>Instrucciones</ion-card-title>
+  </ion-card-header>
+
+  <ion-card-content>
+    Hola soy Max. Este juego consiste en hacer mímicas, haz que tu(s) compañero(s) descubran la palabra. No puedes hablar, ni hacer letras
+    con las manos ni señalar. Te deseo mucha suerte.
+  </ion-card-content>
+</ion-card>
+<ion-content padding>
+    <ion-button type="button" expand="block" (click)="showBoard()">Jugar</ion-button>
+    <ion-button type="button" expand="block" (click)="goToBack()">Atras</ion-button>
+</ion-content>

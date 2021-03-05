@@ -1,0 +1,7 @@
+{
+  "name": "adivina-con-max-f",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,25 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Categorias</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content fullscreen>
+    <app-retry-request *ngIf="templateRetry; else responseOk"></app-retry-request>
+    <ng-template #responseOk>
+      <ion-grid>
+          <ion-row>
+            <ion-col size="6" *ngFor="let categoria of categorias;let i = index" [style.background-color]="changeColor(i)">
+              <div class="mt10">
+                <ion-label (click)="showInstructions(categoria)">
+                  <ion-icon slot="center" name="{{categoria.icon}}"></ion-icon>
+                  <h5>{{categoria.descripcion}}</h5>
+                  <ion-icon class="fs16" slot="end" [name]="freeOrNot(categoria.gratis)"></ion-icon>
+                </ion-label>
+              </div>
+            </ion-col>
+          </ion-row>
+      </ion-grid>
+    </ng-template>
+  </ion-content>
+  

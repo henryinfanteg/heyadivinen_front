@@ -1,0 +1,30 @@
+<ion-grid *ngIf="maxTimeIntro > 0" style="height: 100%">
+  <ion-row justify-content-center align-items-center style="height: 100%">
+      <ion-list>
+        <ion-item>
+          <ion-label class="countdown" fixed>{{maxTimeIntro}}</ion-label>
+        </ion-item>
+      </ion-list>
+  </ion-row>
+</ion-grid>
+<ion-grid *ngIf="maxTimeIntro === 0" style="width: 100%">
+  <ion-row justify-content-center align-items-center>
+      <ion-list>
+        <ion-item justify-content-center align-items-center>
+          <ion-label justify-content-center align-items-center class="countdown" fixed>{{maxTimeBoard}}</ion-label>
+        </ion-item>
+      </ion-list>
+  </ion-row>
+  <ion-row justify-content-center align-items-center style="height: 50%">
+    <ion-card style="width: 100%">
+      <ion-card-header>
+        <ion-card-subtitle>La palabra es:</ion-card-subtitle>
+        <ion-card-title>{{palabraEnTablero}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button type="button" expand="block" color="success" (click)="cambiarPalabra('correcto')">Correcto</ion-button>
+        <ion-button type="button" expand="block" color="danger" (click)="cambiarPalabra('pasar')">Paso</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
+</ion-grid>
