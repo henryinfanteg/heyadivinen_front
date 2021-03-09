@@ -1,7 +1,8 @@
 {
   "name": "adivina-con-max-f",
   "integrations": {
-    "cordova": {}
+    "cordova": {},
+    "capacitor": {}
   },
   "type": "angular"
 }
