@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-
-import { Platform } from '@ionic/angular';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Plugins, StatusBarStyle } from "@capacitor/core";
+import { Platform } from "@ionic/angular";
 
 @Component({
   selector: 'app-root',
@@ -11,20 +9,26 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 export class AppComponent {
   constructor(
-    private platform: Platform,
-    private statusBar: StatusBar
+    private platform: Platform
   ) {
     this.initializeApp();
   }
 
-  initializeApp() {
-    this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
+  async initializeApp() {
+    const {SplashScreen, StatusBar} = Plugins;
+    try {
+      await SplashScreen.show();
+      await StatusBar.setStyle({style: StatusBarStyle.Light});
       if (navigator.onLine) {
         console.log('**** Internet is connected');
      } else {
         console.log('**** No internet connection');
      }
-    });
+      if(this.platform.is('android')) {
+        StatusBar.setBackgroundColor({color: '#CDCDCD'});
+      }
+    } catch (error) {
+      console.log('This is normal in a web browser', error);
+    }
   }
 }

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { catchError, tap, timeout } from 'rxjs/operators';
 
 import { Config } from '../../../configs/config';
+import { catchError, tap, timeout } from 'rxjs/operators';
 
 import { HeadersUtil } from '../_service-util/headers-util';
 import { Contacto } from 'src/app/shared/models/contacto';
