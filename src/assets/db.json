@@ -1,0 +1,42 @@
+{
+    "database": "heyadivinen",
+    "version": 1,
+    "encrypted": false,
+    "mode": "full",
+    "tables": [
+      {
+        "name": "USERS",
+        "schema": [
+          { "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+          { "column": "username", "value": "TEXT NOT NULL" },
+          { "column": "last_modified", "value": "INTEGER DEFAULT (strftime('%s', 'now'))" }
+        ]
+      },
+      {
+        "name": "CATEGORIES",
+        "schema": [
+          { "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+          { "column": "description", "value": "TEXT NOT NULL" },
+          { "column": "price", "value": "TEXT NOT NULL" },
+          { "column": "status", "value": "INTEGER" },
+          { "column": "free", "value": "INTEGER" },
+          { "column": "icon", "value": "TEXT" },
+          { "column": "last_modified", "value": "INTEGER DEFAULT (strftime('%s', 'now'))" }
+        ]
+      },
+      {
+        "name": "WORDS",
+        "schema": [
+          { "column": "id", "value": "INTEGER PRIMARY KEY NOT NULL" },
+          { "column": "categoryId", "value": "INTEGER" },
+          { "column": "description", "value": "TEXT" },
+          { "column": "status", "value": "INTEGER" },
+          { "column": "last_modified", "value": "INTEGER DEFAULT (strftime('%s', 'now'))" },
+          {
+            "foreignkey": "categoryId",
+            "value": "REFERENCES category(id)"
+          }
+        ]
+      }
+    ]
+  }

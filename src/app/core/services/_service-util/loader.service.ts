@@ -1,5 +1,5 @@
 import { LoadingController } from '@ionic/angular';
-
+/*
 export class LoaderService {
 
     isLoading = false;
@@ -23,3 +23,4 @@ export class LoaderService {
     }
 }
 
+*/

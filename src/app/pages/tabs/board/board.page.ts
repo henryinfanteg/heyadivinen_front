@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Palabra } from 'src/app/shared/models/palabra';
-import { PalabraService } from 'src/app/core/services/palabras/palabra.service';
+import { PalabraService } from 'src/app/services/words/palabra.service';
 import { Resultado } from '../../../shared/models/resultado';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
-import { Categoria } from 'src/app/shared/models/categoria';
+// import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
+import { Category } from 'src/app/shared/models/category';
 
 @Component({
   selector: 'app-board',
@@ -21,7 +21,7 @@ export class BoardPage implements OnInit {
   posicion = 0;
   resultados: Resultado[] = [];
   resultado: Resultado = new Resultado();
-  objCategoria: Categoria = new Categoria();
+  objCategoria: Category = new Category();
   // Paginador
   pageSize = 10;
   currentPage = 1;
@@ -30,7 +30,8 @@ export class BoardPage implements OnInit {
     private palabraService: PalabraService,
     private route: ActivatedRoute,
     private router: Router,
-    private loaderService: LoaderService) {
+    // private loaderService: LoaderService
+    ) {
       this.route.queryParams.subscribe(params => {
         if (this.router.getCurrentNavigation().extras.state) {
           this.objCategoria = this.router.getCurrentNavigation().extras.state.categoria;
@@ -77,9 +78,9 @@ export class BoardPage implements OnInit {
     params.set('estado', true);
     params.set('page[number]', this.currentPage);
     params.set('page[size]', this.pageSize);
-    this.loaderService.present();
+    // this.loaderService.present();
     this.palabraService.getPalabrasByCategoriaId(this.objCategoria.id, params).subscribe((response: any) => {
-      this.loaderService.dismiss();
+      // this.loaderService.dismiss();
       if (response && response.status === 200) {
         this.palabras = response.body;
         this.startTimerIntro();

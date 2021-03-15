@@ -31,9 +31,9 @@ export class Config {
     // APIS Existentes
     static apis = [
         // Api Palabras
-        'palabras',
+        'words',
         'categoriasPalabras',
-        'contacto'
+        'contact'
     ];
 
     // MENSAJES GENÉRICOS

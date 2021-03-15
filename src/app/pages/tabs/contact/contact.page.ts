@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { Config } from '../../../configs/config';
 import { ValidatorComponentUtil } from 'src/app/shared/util/validator-component-util';
 import { Contacto } from 'src/app/shared/models/contacto';
-import { NotifylUtil } from 'src/app/shared/util/notify-util';
-import { ContactoService } from '../../../core/services/contacto/contacto.service';
+// import { NotifylUtil } from 'src/app/shared/util/notify-util';
+import { ContactService } from '../../../services/contact/contact.service';
 
 @Component({
   selector: 'app-contact',
@@ -17,7 +17,9 @@ export class ContactPage implements OnInit {
   isValidFormDatosUsuario = false;
   contacto: Contacto;
 
-  constructor(private formBuilder: FormBuilder, private contactoService: ContactoService, private notifyUtil: NotifylUtil) { }
+  constructor(private formBuilder: FormBuilder, private contactoService: ContactService
+    // private notifyUtil: NotifylUtil
+    ) { }
 
   ngOnInit() {
     this.iniatializeForm();
@@ -53,9 +55,9 @@ export class ContactPage implements OnInit {
     this.contactoService.add(this.contacto).subscribe((response: any) => {
       console.log('response enviarMensaje: ', response);
       if (response != null && response.status === 201) {
-        this.notifyUtil.successToast(Config.mensajeEnviado);
+        // this.notifyUtil.successToast(Config.mensajeEnviado);
       } else {
-        this.notifyUtil.dangerToast(Config.errorIntenteMasTarde);
+        // this.notifyUtil.dangerToast(Config.errorIntenteMasTarde);
       }
     });
 }

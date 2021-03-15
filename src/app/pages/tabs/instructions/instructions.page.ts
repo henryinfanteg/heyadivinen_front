@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { Categoria } from 'src/app/shared/models/categoria';
+import { Category } from 'src/app/shared/models/category';
 
 @Component({
   selector: 'app-instructions',
@@ -9,7 +9,7 @@ import { Categoria } from 'src/app/shared/models/categoria';
 })
 export class InstructionsPage implements OnInit {
 
-  objCategoria: Categoria = new Categoria();
+  objCategoria: Category = new Category();
 
   constructor(private route: ActivatedRoute,  public router: Router) {
     this.route.queryParams.subscribe(params => {

@@ -8,8 +8,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
-import { NotifylUtil } from 'src/app/shared/util/notify-util';
+import { DetailService } from './core/services/_service-util/detail.service';
+import { SQLiteService } from './core/services/_service-util/sqlite.service';
+// import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
+// import { NotifylUtil } from 'src/app/shared/util/notify-util';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,8 +25,10 @@ import { NotifylUtil } from 'src/app/shared/util/notify-util';
     HttpClientModule
   ],
   providers: [
-    LoaderService,
-    NotifylUtil,
+    // LoaderService,
+    // NotifylUtil,
+    SQLiteService,
+    DetailService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
