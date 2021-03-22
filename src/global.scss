@@ -24,3 +24,66 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+@font-face {
+    font-family: 'pangolin-regular';
+    src: url('assets/font/Pangolin-Regular.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'roboto-thin';
+    src: url('assets/font/Roboto-Thin.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'roboto-light';
+    src: url('assets/font/Roboto-Light.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'roboto-regular';
+    src: url('assets/font/Roboto-Regular.woff') format('woff');
+}
+
+ion-label {
+    font-family: 'roboto-light' !important;
+}
+
+ion-title {
+    font-family: 'pangolin-regular' !important;
+    font-size: 22px;
+}
+
+ion-button {
+    font-family: 'roboto-regular' !important;
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 20px !important;
+}
+
+ion-item {
+    margin: 0px 20px 0px 20px;
+}
+
+ion-grid {
+    padding: 0;
+}
+
+ion-content {
+    height: 100%;
+}
+
+.bg-curve {
+    padding-top: 20px;
+    border-radius: 10px 10px 0px 0px;
+    background-color: white;
+    margin: 0;
+}
+
+.hg-10p{
+    height: 10%;
+}
+
+.hg-90p{
+    height: 90%;
+}

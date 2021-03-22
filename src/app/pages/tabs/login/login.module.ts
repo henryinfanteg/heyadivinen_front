@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ContactPage } from './contact.page';
+import { LoginPage } from './login.page';
 import { FieldErrorDisplayComponent } from 'src/app/components/field-error-display/field-error-display.component';
+import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
     path: '',
-    component: ContactPage
+    component: LoginPage
   }
 ];
 
@@ -19,10 +19,10 @@ const routes: Routes = [
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ContactPage, FieldErrorDisplayComponent]
+  declarations: [LoginPage, FieldErrorDisplayComponent]
 })
-export class ContactPageModule {}
+export class LoginPageModule {}

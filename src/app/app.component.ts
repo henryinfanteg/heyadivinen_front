@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { DetailService } from "./core/services/_service-util/detail.service";
 import { SQLiteService } from "./core/services/_service-util/sqlite.service";
 import { DBService } from "./core/services/_service-util/db.service";
+import { FirebaseauthService } from "./services/firebase/firebaseauth.service";
+
 
 @Component({
   selector: 'app-root',
@@ -17,7 +19,8 @@ export class AppComponent {
     private platform: Platform,
     private _sqlite: SQLiteService,
     private _detail: DetailService,
-    private dbService: DBService
+    private dbService: DBService,
+    private fireauth: FirebaseauthService
   ) {
     this.initializeApp();
   }
@@ -56,14 +59,14 @@ export class AppComponent {
     const { SplashScreen, StatusBar } = Plugins;
     this.platform.ready().then(async () => {
       SplashScreen.show();
-      StatusBar.setStyle({ style: StatusBarStyle.Light });
+      // StatusBar.setStyle({ style: StatusBarStyle.Light });
       this._detail.setExistingConnection(false);
       this._detail.setExportJson(false);
       this._sqlite.initializePlugin().then(ret => {
         this.initPlugin = ret;
         console.log(">>>> in App  this.initPlugin " + this.initPlugin);
         // this.dbService.importFullJsonToDb(); 
-        this.dbService.addUser(); 
+        // this.dbService.addUser(); 
       });
     });
   }

@@ -10,6 +10,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DetailService } from './core/services/_service-util/detail.service';
 import { SQLiteService } from './core/services/_service-util/sqlite.service';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from 'src/environments/environment';
 // import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
 // import { NotifylUtil } from 'src/app/shared/util/notify-util';
 
@@ -18,11 +22,14 @@ import { SQLiteService } from './core/services/_service-util/sqlite.service';
   entryComponents: [],
   imports: [
     BrowserModule,
+    IonicModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    IonicModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [
     // LoaderService,

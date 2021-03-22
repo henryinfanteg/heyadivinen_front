@@ -14,6 +14,16 @@ export const environment = {
 
   // tslint:disable-next-line:max-line-length
   tokenApiUnknownUser: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2wiOjEsInBlcm1pc29zIjp7IkFERCI6dHJ1ZSwiREVMRVRFIjp0cnVlLCJSRUFEIjp0cnVlLCJVUERBVEUiOnRydWV9LCJhdWQiOiJBTEwiLCJpYXQiOjE1MzU5NTA2ODYsImlzcyI6IlRFU1QiLCJzdWIiOiJhZG1pbiJ9.Ewt7rbpqeUFwH1pDItgFeFNyOEFDJAc0iWEt0mFuhXM',
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  firebaseConfig : {
+    apiKey: "AIzaSyDcSmOKllR_dfb1p5wc70OF3K2Jz7Owg_M",
+    authDomain: "heyadivinen.firebaseapp.com",
+    projectId: "heyadivinen",
+    storageBucket: "heyadivinen.appspot.com",
+    messagingSenderId: "813522283524",
+    appId: "1:813522283524:web:6e61761e76b0af189ed951",
+    measurementId: "G-EXTBQ9CBX2"
+  }
 };
 
 /*

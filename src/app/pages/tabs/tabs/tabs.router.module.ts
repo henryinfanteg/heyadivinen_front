@@ -8,6 +8,16 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
+        path: 'login',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../login/login.module').then(m => m.LoginPageModule)
+          }
+        ]
+      },
+      {
         path: 'home',
         children: [
           {
@@ -39,14 +49,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/tabs/home',
+        redirectTo: '/tabs/login',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/home/categories',
+    redirectTo: '/tabs/login',
     pathMatch: 'full'
   }
 ];

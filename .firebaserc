@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "heyadivinen": {
+      "hosting": {
+        "app": [
+          "heyadivinen"
+        ]
+      }
+    }
+  }
+}
