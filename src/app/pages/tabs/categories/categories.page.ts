@@ -7,6 +7,10 @@ import { ColorsUtil } from 'src/app/shared/util/colors-util';
 import { FirestoreService } from 'src/app/services/firebase/firestore.service';
 import { DatabaseService } from 'src/app/core/services/_service-util/database.service';
 import { FirebaseauthService } from 'src/app/services/firebase/firebaseauth.service';
+import { ToastService } from 'src/app/core/services/_service-util/toast.service';
+import { Parameters } from 'src/app/shared/parameters';
+import { StorageService } from 'src/app/core/services/_service-util/storage.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-categories',
@@ -21,12 +25,15 @@ export class CategoriesPage implements OnInit {
   categories = [];
   export = null;
   newCategory = new Category();
+  user = this.storageService.getDataUser();
 
   constructor(private categoriaService: CategoriasService,
     public router: Router,
     private databaseService: DatabaseService,
     private firestoreService: FirestoreService,
-    private fireauth: FirebaseauthService
+    private fireauth: FirebaseauthService,
+    private toastService: ToastService,
+    private storageService: StorageService
     //, private loaderService: LoaderService
   ) {
     // this.loadCategories();
@@ -40,7 +47,7 @@ export class CategoriesPage implements OnInit {
       console.log('', res)
     });*/
     // this.saveUser();
-    this.getAllCategorias();
+    // this.getAllCategorias();
   }
 
   changeColor(index) {
@@ -123,4 +130,12 @@ export class CategoriesPage implements OnInit {
     this.firestoreService.createGeneric(user, path, user.username);
   }
 
+  logout() {
+    const resp = this.fireauth.logout();
+    if(resp) {
+      this.router.navigate(['/login']);
+    } else {
+      this.toastService.presentToast(Parameters.registerErrorService, Parameters.durationToastThree, Parameters.colorError);
+    }
+  }
 }

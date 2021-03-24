@@ -6,9 +6,9 @@ export class FirestoreService {
 
   constructor(public database: AngularFirestore) { }
 
-  createGeneric(data: any, path : string, id: string) {
+  createGeneric(data: any, path: string, id: string) {
       const collection = this.database.collection(path);
-      return collection.doc(id).set(data);
+      return collection.doc(id).set(Object.assign({}, data));
   }
 
   getGeneric(path: string, id: string) {

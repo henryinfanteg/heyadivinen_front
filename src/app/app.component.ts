@@ -5,6 +5,9 @@ import { DetailService } from "./core/services/_service-util/detail.service";
 import { SQLiteService } from "./core/services/_service-util/sqlite.service";
 import { DBService } from "./core/services/_service-util/db.service";
 import { FirebaseauthService } from "./services/firebase/firebaseauth.service";
+import { Router } from "@angular/router";
+import { StorageService } from "./core/services/_service-util/storage.service";
+import { User } from "./shared/models/user";
 
 
 @Component({
@@ -14,13 +17,18 @@ import { FirebaseauthService } from "./services/firebase/firebaseauth.service";
 })
 
 export class AppComponent {
+
   private initPlugin: boolean;
+  public user = this.storageService.getDataUser();
+
   constructor(
     private platform: Platform,
     private _sqlite: SQLiteService,
     private _detail: DetailService,
     private dbService: DBService,
-    private fireauth: FirebaseauthService
+    private fireauth: FirebaseauthService,
+    private router: Router,
+    private storageService: StorageService
   ) {
     this.initializeApp();
   }
@@ -65,6 +73,17 @@ export class AppComponent {
       this._sqlite.initializePlugin().then(ret => {
         this.initPlugin = ret;
         console.log(">>>> in App  this.initPlugin " + this.initPlugin);
+        this.fireauth.stateAuth().subscribe(res => {
+          console.log('**** res stateAuth: ', res);
+          if(res !== null) {
+            this.user.uid = res.uid;
+            this.user.username = res.email;
+            this.storageService.setDataUser(this.user);
+            this.router.navigate(['/home']);
+          } else {
+            this.router.navigate(['/login']);
+          }
+        });
         // this.dbService.importFullJsonToDb(); 
         // this.dbService.addUser(); 
       });

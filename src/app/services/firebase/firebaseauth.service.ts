@@ -15,7 +15,7 @@ export class FirebaseauthService {
 
   login(mail: string, pass: string) {
     // this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
-    this.auth.signInWithEmailAndPassword(mail, pass);
+    return this.auth.signInWithEmailAndPassword(mail, pass);
   }
   logout() {
     return this.auth.signOut();

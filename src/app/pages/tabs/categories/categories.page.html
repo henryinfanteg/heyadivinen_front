@@ -1,10 +1,20 @@
 <ion-header>
     <ion-toolbar>
       <ion-title>Categorias</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="logout()">
+          Salir
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
   
   <ion-content fullscreen>
+    <ion-label>Bienvenido {{user.username}}</ion-label>
+    <br>
+    <ion-label>uid: {{user.uid}}</ion-label>
+    <br>
+    <ion-label>country: {{user.country}}</ion-label>
     <app-retry-request *ngIf="templateRetry; else responseOk"></app-retry-request>
     <ng-template #responseOk>
       <ion-grid>

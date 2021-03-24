@@ -1,9 +1,11 @@
+
+
 export class User {
-    uid: number;
+    uid: string;
     country: number;
-    bornDate: Date;
+    birthDate: Date;
     username: string;
-    status: boolean;
-    creationDate: Date;
+    status = true;
+    creationDate = new Date();
     modifyDate: Date;
 }

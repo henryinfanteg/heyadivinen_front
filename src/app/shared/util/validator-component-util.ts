@@ -1,4 +1,4 @@
-import {AbstractControl } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 export class ValidatorComponentUtil {
 
@@ -32,9 +32,9 @@ export class ValidatorComponentUtil {
             message = `Máximo ${fieldControl.errors.maxlength.requiredLength} caracteres`;
         } else if (fieldControl.hasError('pattern')) {
             if (fieldType && fieldType.includes('email')) {
-                message = 'Formato de email invalido';
+                message = 'Debe tener un formato de email';
             } else if (fieldType && fieldType === 'soloLetras') {
-                message = 'No se permiten números en este campo';
+                message = 'Este campo no puede contener números';
             } else {
                 message = 'Formato invalido';
             }
@@ -46,6 +46,17 @@ export class ValidatorComponentUtil {
             }
         }
         return message;
+    }
+
+    static validateAllFormFields(formGroup: FormGroup) {
+        Object.keys(formGroup.controls).forEach(field => {
+            const control = formGroup.get(field);
+            if (control instanceof FormControl) {
+                control.markAsTouched({ onlySelf: true });
+            } else if (control instanceof FormGroup) {
+                this.validateAllFormFields(control);
+            }
+        });
     }
 
 }
