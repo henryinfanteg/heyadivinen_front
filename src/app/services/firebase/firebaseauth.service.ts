@@ -10,15 +10,15 @@ export class FirebaseauthService {
 
   constructor(public auth: AngularFireAuth) {
     // colocar lo logica de redirección si no está logueado o si lo está
-    // this.getUid();
+    // console.log('-----> usr: ', this.getUid());
   }
 
   login(mail: string, pass: string) {
     // this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
     return this.auth.signInWithEmailAndPassword(mail, pass);
   }
-  logout() {
-    return this.auth.signOut();
+  async logout() {
+    return await this.auth.signOut();
   }
 
   register(mail: string, pass: string) {

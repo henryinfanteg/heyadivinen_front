@@ -15,11 +15,12 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { ToastService } from './core/services/_service-util/toast.service';
+import { TabsPage } from './pages/tabs/tabs/tabs.page';
 // import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
 // import { NotifylUtil } from 'src/app/shared/util/notify-util';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, TabsPage],
   entryComponents: [],
   imports: [
     BrowserModule,

@@ -1,5 +1,22 @@
 export class Parameters {
     static pathUser = 'users/';
+    static pathUserLogs = 'users-logs/';
+    static pathCategories = 'categories/';
+    static pathCategorieslogs = 'categories-logs/';
+
+    // LOGS
+    static logsCreate = 'CREATE';
+    static logsLevelInfo = 'INFO';
+    static logsLevelError = 'ERROR';
+    static logsMessageUserCreated = 'USER CREATED';
+    static logsMessageUserSignUp = 'USER SIGN UP';
+    
+    static methodNameCreateUser = 'createUser';
+    static methodNameSignUp = 'signUp';
+
+    static statusCodeCreate = 201;
+    static statusCodeSuccess = 200;
+    static statusCodeErrorGeneric = 400;
 
 
     // ERRRORS

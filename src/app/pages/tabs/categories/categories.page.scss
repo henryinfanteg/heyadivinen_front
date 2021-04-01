@@ -5,6 +5,11 @@ ion-col{
 ion-icon{
     font-size: 32px;
 }
+
+ion-grid {
+    height: 100%;
+}
+
 h5{
     margin-top: 10px;
 }
@@ -15,4 +20,20 @@ h5{
 
 .fs16{
     font-size: 16px;
+}
+
+.img-ctg {
+    background-image: url('../../../../assets/img/img-example.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.grid-ctg {
+    max-height: 100%;
+}
+
+.col-icon-ctg {
+    height: 30%;
+    cursor: pointer;
 }

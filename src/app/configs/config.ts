@@ -14,10 +14,10 @@ export class Config {
 
     // Api Palabras
     static apiPalabrasPalabras = 'palabras - palabras';
-    static apiPalabrasCategorias = 'palabras - categorias';
+    static apiPalabrasCategorias = 'words - categories';
 
     // Api Contacto
-    static apiContacto = 'contacto - contacto';
+    static apiContacto = 'contact - contact';
 
     // Api Trace
     static apiTrace = 'trace - trace';

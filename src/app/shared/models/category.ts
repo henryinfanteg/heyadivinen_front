@@ -1,13 +1,10 @@
 export class Category {
-    _id: string;
+    uid: string;
     id: string;
     description: string;
-    free: boolean;
     price: string;
     icon: string;
     status: boolean;
-    fechaCreacion: Date;
-    usuarioCreacion: string;
-    fechaModificacion: Date;
-    usuarioModificacion: string;
+    creationDate: Date;
+    updateModify: Date;
 }

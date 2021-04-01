@@ -109,7 +109,7 @@ export class DatabaseService {
 
   addDummyCategory(category: Category) {
     console.log('------> ENTER ADD DUMMYYY');
-    const statement = `INSERT INTO heyadivinen-local-db.category (id, description, price, status, free, icon) VALUES ('${category.id}','${category.description}', '${category.price}', ${category.status}, ${category.free}, '${category.icon}');`;
+    const statement = `INSERT INTO heyadivinen-local-db.category (id, description, price, status, icon) VALUES ('${category.id}','${category.description}', '${category.price}', ${category.status}, '${category.icon}');`;
     return CapacitorSQLite.execute({ database: DB_NAME_KEY, statements: statement });
   }
 

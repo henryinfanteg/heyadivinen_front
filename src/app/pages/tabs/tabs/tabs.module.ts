@@ -7,6 +7,7 @@ import { TabsPageRoutingModule } from './tabs.router.module';
 import { IonicModule } from '@ionic/angular';
 
 import { TabsPage } from './tabs.page';
+import { StorageService } from 'src/app/core/services/_service-util/storage.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { TabsPage } from './tabs.page';
     IonicModule,
     TabsPageRoutingModule
   ],
-  declarations: [TabsPage]
+  declarations: [],
+  providers: [StorageService]
 })
 export class TabsPageModule {}

@@ -47,6 +47,8 @@
 
 ion-label {
     font-family: 'roboto-light' !important;
+    color: black;
+    font-weight: bold;
 }
 
 ion-title {
@@ -75,9 +77,10 @@ ion-content {
 
 .bg-curve {
     padding-top: 20px;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 20px 20px 0px 0px;
     background-color: white;
     margin: 0;
+    box-shadow: 2px -2px 16px 0px rgba(0,0,0,0.75);
 }
 
 .hg-10p{
@@ -86,4 +89,20 @@ ion-content {
 
 .hg-90p{
     height: 90%;
+}
+
+.hg-100p{
+    height: 100%;
+}
+
+.alg-self-cnt {
+    align-self: center;
+}
+
+.alg-self-cnt ion-label {
+    font-family: 'pangolin-regular' !important;
+}
+
+.dps-conts {
+    display: contents;
 }
