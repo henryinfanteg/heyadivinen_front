@@ -23,7 +23,8 @@ export class Config {
     static apiTrace = 'trace - trace';
 
     // Patrones - Expresiones Regulares
-    static emailValido = '[a-zA-Z\-0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}';
+    static validEmail = '[a-zA-Z\-0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}';
+    static validPassword = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\\D*\\d)[A-Za-z\\d!$%@#£€*?&]{6,}$';
 
     // Estados mensajes
     static pendiente = 'PENDIENTE';

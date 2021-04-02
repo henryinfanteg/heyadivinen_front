@@ -7,10 +7,12 @@ import { ToastService } from 'src/app/core/services/_service-util/toast.service'
 import { FirebaseauthService } from 'src/app/services/firebase/firebaseauth.service';
 import { FirestoreService } from 'src/app/services/firebase/firestore.service';
 import { LoggerService } from 'src/app/services/logger.service';
-import { LoggerGeneral, LoggerRequest, LoggerResponse } from 'src/app/shared/models/logger';
+import { LoggerGeneral, LoggerResponse } from 'src/app/shared/models/logger';
 import { User } from 'src/app/shared/models/user';
 import { Parameters } from 'src/app/shared/parameters';
+import { HandlerErrorService } from 'src/app/services/handler-error.service';
 import { ValidatorComponentUtil } from 'src/app/shared/util/validator-component-util';
+import { MustMatch } from 'src/app/shared/util/must-match.validator';
 
 @Component({
   selector: 'app-register',
@@ -33,7 +35,8 @@ export class RegisterPage implements OnInit {
     private router: Router,
     private toastService: ToastService,
     private storageService: StorageService,
-    private loggerService: LoggerService) { }
+    private loggerService: LoggerService,
+    private handlerError: HandlerErrorService) { }
 
   ngOnInit() {
     this.iniatializeForm();
@@ -43,10 +46,13 @@ export class RegisterPage implements OnInit {
     this.form = this.formBuilder.group({
       country: [null, [Validators.required]],
       birthDate: [null, [Validators.minLength(2)]],
-      email: [null, Validators.compose([Validators.required, Validators.pattern(Config.emailValido)])],
-      password: [null, [Validators.required]],
+      email: [null, Validators.compose([Validators.required, Validators.pattern(Config.validEmail)])],
+      password: [null, Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern(Config.validPassword)])],
       confirmPassword: [null, [Validators.required]],
-    });
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+    }
+);
   }
 
   signUp() {
@@ -58,19 +64,13 @@ export class RegisterPage implements OnInit {
         this.user.birthDate = this.form.controls.birthDate.value;
         this.user.username = this.form.controls.email.value;
         this.user.modifyDate = new Date();
-        this.loggerService.loggerCreate(this.user, Parameters.methodNameSignUp, this.user.username, this.user.uid, Parameters.logsMessageUserCreated, Parameters.statusCodeSuccess);
+        this.loggerService.logResponse(this.user, Parameters.methodNameSignUp, this.user.username, this.user.uid, Parameters.logsMessageUserCreated, Parameters.statusCodeSuccess, this.user, Parameters.pathAuth);
         this.createUser(this.user);
       }).catch(err => {
+        console.error('---> err signUp: ', err);
+        this.loggerService.loggerError(this.form.controls.email.value, Parameters.methodNameSignUp, this.form.controls.email.value, null, err, Parameters.pathAuth);
         if (err) {
-          console.log('signUp err', err);
-          console.log('signUp err t: ', err.t);
-          this.loggerService.loggerError(this.form.controls.email.value, Parameters.methodNameSignUp, this.form.controls.email.value, null, err);
-          // AQUI SE DEBE CREAR UN HANDLER ERROR
-          if (err.code === 'auth/email-already-in-use') {
-            this.toastService.presentToast(Parameters.emailExisteErrorService, Parameters.durationToastThree, Parameters.colorError);
-          } else {
-            this.toastService.presentToast(Parameters.registerErrorService, Parameters.durationToastThree, Parameters.colorError);
-          }
+          this.handlerError.errorAuth(err.code, Parameters.logsMessageUserCreated);
         }
       });
     } else {
@@ -81,17 +81,15 @@ export class RegisterPage implements OnInit {
   createUser(user: User) {
     this.firestore.createGeneric(user, Parameters.pathUser, user.uid).then(res => {
       console.log('createUser res: ', res);
-      this.loggerService.loggerCreate(user, Parameters.methodNameCreateUser, user.username, user.uid, Parameters.logsMessageUserCreated, Parameters.statusCodeCreate);
+      this.loggerService.logResponse(user, Parameters.methodNameCreateUser, user.username, user.uid, Parameters.logsMessageUserCreated, Parameters.statusCodeCreate, user, Parameters.pathUser);
       this.storageService.userEvent.emit(user);
       this.router.navigate(['/home']);
     }).catch(err => {
       console.log('createUser err: ', err);
+      this.loggerService.loggerError(user, Parameters.methodNameCreateUser, user.username, user.uid, err, Parameters.pathUser);
       if (err) {
-        this.toastService.presentToast(Parameters.createUserErrorService, Parameters.durationToastThree, Parameters.colorError);
-        this.loggerService.loggerError(user, Parameters.methodNameCreateUser, user.username, user.uid, err);
-        console.error('Ha ocurrido un error al momento de registrar la autenticación');
+        this.handlerError.errorUser(err.code);
       }
     });
   }
-
 }

@@ -16,6 +16,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { ToastService } from './core/services/_service-util/toast.service';
 import { TabsPage } from './pages/tabs/tabs/tabs.page';
+import { LoggerService } from './services/logger.service';
+import { HandlerErrorService } from './services/handler-error.service';
 // import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
 // import { NotifylUtil } from 'src/app/shared/util/notify-util';
 
@@ -39,6 +41,8 @@ import { TabsPage } from './pages/tabs/tabs/tabs.page';
     SQLiteService,
     DetailService,
     ToastService,
+    LoggerService,
+    HandlerErrorService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

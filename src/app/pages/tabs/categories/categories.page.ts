@@ -7,6 +7,8 @@ import { FirebaseauthService } from 'src/app/services/firebase/firebaseauth.serv
 import { ToastService } from 'src/app/core/services/_service-util/toast.service';
 import { Parameters } from 'src/app/shared/parameters';
 import { StorageService } from 'src/app/core/services/_service-util/storage.service';
+import { HandlerErrorService } from 'src/app/services/handler-error.service';
+import { LoggerService } from 'src/app/services/logger.service';
 
 @Component({
   selector: 'app-categories',
@@ -20,17 +22,23 @@ export class CategoriesPage implements OnInit, OnDestroy {
   categories = [];
   user;
 
+  getAllCategories$;
+
   constructor(
     public router: Router,
     private firestoreService: FirestoreService,
     private fireauth: FirebaseauthService,
     private toastService: ToastService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private loggerService: LoggerService,
+    private handlerError: HandlerErrorService
     //, private loaderService: LoaderService
   ) {
+    this.user = this.storageService.getDataUser();
   }
   ngOnDestroy(): void {
     this.storageService.userEvent.unsubscribe();
+    this.getAllCategories$.unsubscribe();
   }
 
   ngOnInit() {
@@ -50,9 +58,12 @@ export class CategoriesPage implements OnInit, OnDestroy {
   }
 
   getAllCategories() {
-    // AQUI FALTA MIRAR QUE PASA CUANDO HAY ERROR Y COLOCAR EL HANDLER ERROR
-    this.firestoreService.getCollection(Parameters.pathCategories).subscribe(resp => {
+    this.getAllCategories$ = this.firestoreService.getCollection(Parameters.pathCategories).subscribe(resp => {
       this.categories = resp;
+      this.loggerService.logResponse(JSON.stringify(resp), Parameters.methodNameGetAllCategories, this.user.username, this.user.uid, Parameters.logsMessageUserGetAllCategories, Parameters.statusCodeSuccess, null, Parameters.pathCategories);
+    }, err => {
+      this.loggerService.loggerError(null, Parameters.methodNameGetAllCategories, this.user.username, this.user.uid, err, Parameters.pathCategories);
+      this.handlerError.errorCategories(err.code);
     });
   }
 
@@ -65,14 +76,17 @@ export class CategoriesPage implements OnInit, OnDestroy {
     this.router.navigate(['/tabs/home/instructions'], navigationExtras);
   }
 
-  logout() {
-    const resp = this.fireauth.logout();
-    if(resp) {
+  logOut() {
+    console.log('ENTRÓ AL LOGOUT');
+    const resp = this.fireauth.logout().then(res => {
+      this.loggerService.logResponse(JSON.stringify(resp) , Parameters.methodNameLogOut, this.user.username, this.user.uid, Parameters.logsMessageLogOutSuccess, Parameters.statusCodeSuccess, null, Parameters.pathAuth);
       this.storageService.userEvent.emit(null);
       this.router.navigate(['/login']);
-    } else {
-      this.toastService.presentToast(Parameters.registerErrorService, Parameters.durationToastThree, Parameters.colorError);
-    }
+    }, err => {
+      this.loggerService.loggerError(null, Parameters.methodNameLogOut, this.user.username, this.user.uid, Parameters.logOutErrorService, Parameters.pathAuth);
+      this.handlerError.errorAuth(null, Parameters.logOutErrorService);
+    });
+    this.getAllCategories$.unsubscribe();
   }
 }
 

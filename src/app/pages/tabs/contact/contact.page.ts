@@ -27,7 +27,7 @@ export class ContactPage implements OnInit {
 
   iniatializeForm() {
     this.form = this.formBuilder.group({
-      email: [null, Validators.compose([Validators.required, Validators.pattern(Config.emailValido)])],
+      email: [null, Validators.compose([Validators.required, Validators.pattern(Config.validEmail)])],
       asunto: [null, [Validators.minLength(2)]],
       mensaje: [null, [Validators.minLength(2), Validators.required]]
     });

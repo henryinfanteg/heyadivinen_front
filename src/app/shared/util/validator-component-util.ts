@@ -21,7 +21,7 @@ export class ValidatorComponentUtil {
 
     // Devuelve el error de un campo
     static getFieldError(fieldControl: AbstractControl, fieldType?: string): string {
-        // console.log('error:', fieldType, fieldControl.value, JSON.stringify(fieldControl.errors));
+        // console.log('getFieldError:', fieldType, fieldControl.value, JSON.stringify(fieldControl.errors));
         let message = '';
 
         if (fieldControl.hasError('required')) {
@@ -35,8 +35,10 @@ export class ValidatorComponentUtil {
                 message = 'Debe tener un formato de email';
             } else if (fieldType && fieldType === 'soloLetras') {
                 message = 'Este campo no puede contener números';
+            } else if(fieldType && fieldType.includes('password')) {
+                message = 'Debe tener un número, una minúscula y una mayúscula por lo menos';
             } else {
-                message = 'Formato invalido';
+                message = 'Formato inválido';
             }
         } else if (fieldControl.hasError('mustMatch')) {
             if (fieldType && fieldType.includes('password')) {
