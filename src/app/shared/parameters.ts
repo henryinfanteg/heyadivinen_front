@@ -10,6 +10,7 @@ export class Parameters {
     static logsLevelInfo = 'INFO';
     static logsLevelError = 'ERROR';
     static logsMessageUserCreated = 'USER CREATED';
+    static logsMessageGetCreated = 'GET USER';
     static logsMessageUserSignUp = 'USER SIGN UP';
     static logsMessageUserSignIn = 'USER SIGN IN';
     static logsMessageUserGetAllCategories = 'ALL CATEGORIES GOT';
@@ -25,6 +26,13 @@ export class Parameters {
     static statusCodeCreate = 201;
     static statusCodeSuccess = 200;
     static statusCodeErrorGeneric = 400;
+
+    static timeIntro = 3;
+    static timeGame = 45;
+
+    static actionPass = 'pass';
+    static actionCorrect = 'correct';
+    static pointsHit = 3;
 
 
     // ERRRORS

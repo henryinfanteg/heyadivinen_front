@@ -15,11 +15,14 @@ export class TabsPage implements OnInit {
       console.log('TABS RESP: ', resp);
       this.user = resp;
     });*/
-    this.storageService.userEvent.subscribe(resp => {
+    console.log('ENTRO AL TAB PAGE !!!!');
+    /* this.storageService.userEvent.subscribe(resp => {
       console.log('TABS RESP: ', resp);
       this.user = resp;
-    });
+    });*/
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('ngOnInit ENTRO AL TAB PAGE !!!!');
+  }
 }

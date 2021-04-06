@@ -1,15 +1,39 @@
-<ion-card>
-  <ion-card-header>
-    <ion-card-subtitle>Categoría: {{objCategoria.descripcion}}</ion-card-subtitle>
-    <ion-card-title>Instrucciones</ion-card-title>
-  </ion-card-header>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Instrucciones</ion-title>
+    <ion-buttons slot="start">
+      <ion-button class="dps-conts">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button class="dps-conts" (click)="logOut()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-card-content>
-    Hola soy Max. Este juego consiste en hacer mímicas, haz que tu(s) compañero(s) descubran la palabra. No puedes hablar, ni hacer letras
-    con las manos ni señalar. Te deseo mucha suerte.
-  </ion-card-content>
-</ion-card>
-<ion-content padding>
-    <ion-button type="button" expand="block" (click)="showBoard()">Jugar</ion-button>
-    <ion-button type="button" expand="block" (click)="goToBack()">Atras</ion-button>
+<ion-content color="primary">
+  <ion-grid class="ion-align-items-center">
+    <ion-row class="hg-10p"></ion-row>
+    <ion-row class="bg-curve hg-90p">
+      <ion-col>
+        <div class="ion-padding">
+          <p>
+            <ion-label class="a-register">
+              La categoria <b>{{objCategory.description || 'que elegiste '}}</b> consiste en hacer solamente mímicas para que tus compañeros descubran la palabra. No
+              puedes hablar, ni hacer letras con las manos ni señalar. Espero que <b>¡hey adivinen!</b>.
+            </ion-label>
+          </p>
+
+          <div class="ion-padding">
+            <ion-button class="ion-no-margin" type="button" expand="block" (click)="showBoard()">Jugar</ion-button>
+            <ion-button color="light" class="ion-no-margin" type="button" expand="block" (click)="goToBack()">Atrás</ion-button>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

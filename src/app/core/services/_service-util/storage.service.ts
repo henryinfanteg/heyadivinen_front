@@ -9,10 +9,19 @@ import { User } from "src/app/shared/models/user";
 export class StorageService {
 
     userEvent = new EventEmitter<User>();
+    categories = [];
 
     constructor() { }
 
     getDataUser() {
         return this.userEvent;
+    }
+
+    setCategories(cat) {
+        this.categories = cat
+    }
+
+    getCategories() {
+        return this.categories;
     }
 }

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Palabra } from 'src/app/shared/models/palabra';
-import { PalabraService } from 'src/app/services/words/palabra.service';
-import { Resultado } from '../../../shared/models/resultado';
+import { Word } from 'src/app/shared/models/word';
+import { Result } from '../../../shared/models/result';
 import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 // import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
 import { Category } from 'src/app/shared/models/category';
+import { Parameters } from 'src/app/shared/parameters';
+import { StorageService } from 'src/app/core/services/_service-util/storage.service';
 
 @Component({
   selector: 'app-board',
@@ -16,42 +17,77 @@ export class BoardPage implements OnInit {
 
   maxTimeIntro: number;
   maxTimeBoard: number;
-  palabras: Palabra[] = [];
-  palabraEnTablero = '';
-  posicion = 0;
-  resultados: Resultado[] = [];
-  resultado: Resultado = new Resultado();
-  objCategoria: Category = new Category();
-  // Paginador
-  pageSize = 10;
-  currentPage = 1;
+  words = [];
+  wordOnBoard = '';
+  position = 0;
+  results: Result[] = [];
+  result: Result = new Result();
+  objCategory: Category = new Category();
+
+  // DELETE THIS OBJECT FOR PDN
+  wordsTest = [];
+  categoriesTest = [
+    {
+      description: "PELÍCULAS 1",
+      icon: "movies-one",
+      id: 1,
+      price: 0,
+      status: true,
+      words: [{ clue: "", description: "Titanic" }, { description: "Harry Potter", clue: "" }]
+    },
+    {
+      description: "LUGARES 1",
+      icon: "places-one",
+      id: 3,
+      price: 0,
+      status: true,
+      words: [{ clue: "", description: "Campos Eliseos" }, { clue: "", description: "La Muralla China" }]
+    },
+    {
+      description: "SERIES 1",
+      icon: "series-one",
+      id: 2,
+      price: 0,
+      status: true,
+      words: [{ description: "Flash", clue: "" }, { description: "Arrow", clue: "" }]
+    },
+    {
+      description: "ACTORES 1",
+      icon: "actors-one",
+      id: 4,
+      price: 0,
+      status: true,
+      words: [{ clue: "", description: "Pierce Brosnan" }, { clue: "", description: "Brad Pitt" }]
+    }
+  ];
 
   constructor(
-    private palabraService: PalabraService,
     private route: ActivatedRoute,
     private router: Router,
+    private storageService: StorageService
     // private loaderService: LoaderService
-    ) {
-      this.route.queryParams.subscribe(params => {
-        if (this.router.getCurrentNavigation().extras.state) {
-          this.objCategoria = this.router.getCurrentNavigation().extras.state.categoria;
-        }
-      });
+  ) {
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.objCategory = this.router.getCurrentNavigation().extras.state.categoria;
+      }
+    });
   }
 
   initialize() {
-    this.maxTimeIntro = 3;
-    this.maxTimeBoard = 45;
-    this.palabras = [];
-    this.getAllPalabrasXcategoriaId();
+    this.maxTimeIntro = Parameters.timeIntro;
+    this.maxTimeBoard = Parameters.timeGame;
+    this.words = [];
+    this.getAllWordsXcategoryId();
   }
 
   ngOnInit() {
+    console.log('board get categories: ', this.storageService.getCategories());
     this.initialize();
   }
 
   startTimerIntro() {
-    this.cambiarPalabra(null);
+    this.changeWord(null);
     const interval = setInterval(x => {
           if (this.maxTimeIntro > 0) {
             this.maxTimeIntro -= 1;
@@ -64,50 +100,60 @@ export class BoardPage implements OnInit {
 
   startTimerBoard() {
     const interval = setInterval(x => {
-          if (this.maxTimeBoard > 0) {
-            this.maxTimeBoard--;
-          } else if (this.maxTimeBoard === 0) {
-            clearInterval(interval);
-            this.showResults();
-          }
-      }, 1000);
+      if (this.maxTimeBoard > 0) {
+        this.maxTimeBoard--;
+      } else if (this.maxTimeBoard === 0) {
+        clearInterval(interval);
+        this.showResults();
+      }
+    }, 1000);
   }
 
-  getAllPalabrasXcategoriaId() {
-    const params = new Map<string, any>();
+  getAllWordsXcategoryId() {
+    /*const params = new Map<string, any>();
     params.set('estado', true);
     params.set('page[number]', this.currentPage);
     params.set('page[size]', this.pageSize);
     // this.loaderService.present();
-    this.palabraService.getPalabrasByCategoriaId(this.objCategoria.id, params).subscribe((response: any) => {
+    this.palabraService.getPalabrasByCategoriaId(this.objCategory.id, params).subscribe((response: any) => {
       // this.loaderService.dismiss();
       if (response && response.status === 200) {
-        this.palabras = response.body;
+        this.words = response.body;
         this.startTimerIntro();
       }
     });
+    */
+   this.categoriesTest.filter(cat => {
+     if(cat.id === this.objCategory.id) {
+      this.words = cat.words;
+      this.startTimerIntro();
+     }
+   });
+
+   console.log('---> this.wordsTest: ', this.words);
   }
 
 
-  cambiarPalabra(accion) {
-    if (accion === 'pasar') {
-      this.resultado.estado = 'Pasó';
-      this.resultado.palabra = this.palabraEnTablero;
-      this.resultados.push(this.resultado);
-    } else if (accion === 'correcto') {
-      this.resultado.puntos = 3;
-      this.resultado.respuesta = true;
-      this.resultado.palabra = this.palabraEnTablero;
-      this.resultados.push(this.resultado);
+  changeWord(action) {
+    if (action === Parameters.actionPass) {
+      this.result.status = Parameters.actionPass;
+      this.result.word = this.wordOnBoard;
+      this.results.push(this.result);
+    } else if (action === Parameters.actionCorrect) {
+      this.result.points = Parameters.pointsHit;
+      this.result.response = true;
+      this.result.word = this.wordOnBoard;
+      this.results.push(this.result);
     }
-    this.mostrarPalabra();
+    this.showWord();
   }
 
-  mostrarPalabra() {
-    if (this.palabras.length) {
-      this.palabraEnTablero = this.palabras[this.posicion].palabra;
-      this.palabras.splice(this.posicion, 1);
-      this.resultado = new Resultado();
+  showWord() {
+    console.log('---> words.length: ', this.words.length);
+    if (this.words.length) {
+      this.wordOnBoard = this.words[this.position].description;
+      this.words.splice(this.position, 1);
+      this.result = new Result();
     } else {
       this.showResults();
     }
@@ -116,10 +162,10 @@ export class BoardPage implements OnInit {
   showResults() {
     const navigationExtras: NavigationExtras = {
       state: {
-        resultados: this.resultados
+        resultados: this.results
       }
     };
-    this.router.navigate(['/tabs/home/results'], navigationExtras);
+    this.router.navigate(['/home/results'], navigationExtras);
   }
 
 }

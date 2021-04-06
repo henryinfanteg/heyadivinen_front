@@ -9,12 +9,12 @@ import { Category } from 'src/app/shared/models/category';
 })
 export class InstructionsPage implements OnInit {
 
-  objCategoria: Category = new Category();
+  objCategory: Category = new Category();
 
   constructor(private route: ActivatedRoute,  public router: Router) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.objCategoria = this.router.getCurrentNavigation().extras.state.categoria;
+        this.objCategory = this.router.getCurrentNavigation().extras.state.categoria;
       }
     });
   }
@@ -25,14 +25,14 @@ export class InstructionsPage implements OnInit {
   showBoard() {
     const navigationExtras: NavigationExtras = {
       state: {
-        categoria: this.objCategoria
+        categoria: this.objCategory
       }
     };
-    this.router.navigate(['/tabs/home/board'], navigationExtras);
+    this.router.navigate(['/home/board'], navigationExtras);
   }
 
   goToBack() {
-    this.router.navigate(['../../']);
+    this.router.navigate(['/home']);
   }
 
 }

@@ -57,10 +57,10 @@ export class LoginPage implements OnInit, OnDestroy {
       this.fireauth.login(this.form.controls.email.value, this.form.controls.password.value).then(res => {
         console.log('___> res sign in: ', res);
         this.getInfoUser(res.user.uid);
-        this.loggerService.logResponse(res.user, Parameters.methodNameSignIn, res.user.uid, res.user.uid, Parameters.logsMessageUserSignIn, Parameters.statusCodeSuccess, this.form.controls.email.value, Parameters.pathAuth);
+        // this.loggerService.logResponse(res.user, Parameters.methodNameSignIn, res.user.uid, res.user.uid, Parameters.logsMessageUserSignIn, Parameters.statusCodeSuccess, this.form.controls.email.value, Parameters.pathAuth);
       }, err => {
         console.log('---> err sign in:', err);
-        this.loggerService.loggerError(this.form.controls.email.value, Parameters.methodNameSignIn, this.form.controls.email.value, this.form.controls.email.value, err, Parameters.pathAuth);
+        // this.loggerService.loggerError(this.form.controls.email.value, Parameters.methodNameSignIn, this.form.controls.email.value, this.form.controls.email.value, err, Parameters.pathAuth);
         if (err) {
           this.handlerError.errorAuth(err.code, Parameters.logsMessageUserSignIn);
         }
@@ -74,11 +74,12 @@ export class LoginPage implements OnInit, OnDestroy {
   getInfoUser(uid) {
     this.getGeneric$ = this.firestore.getGeneric(Parameters.pathUser, uid).subscribe((resp: User) => {
       console.log('----> getInfoUser : ', resp);
-      this.loggerService.logResponse(resp, Parameters.methodNameGetInfoUser, resp.username, resp.uid, Parameters.logsMessageUserSignIn, Parameters.statusCodeSuccess, this.form.controls.email.value, Parameters.pathUser);
+      // this.loggerService.logResponse(resp, Parameters.methodNameGetInfoUser, resp.username, resp.uid, Parameters.logsMessageUserSignIn, Parameters.statusCodeSuccess, this.form.controls.email.value, Parameters.pathUser);
       this.storageService.userEvent.emit(resp);
       this.router.navigate(['home']);
     }, err => {
-      this.loggerService.loggerError(this.form.controls.email.value, Parameters.methodNameGetInfoUser, this.form.controls.email.value, uid, err, Parameters.pathUser);
+      this.handlerError.errorUser(err.code, Parameters.logsMessageGetCreated);
+      // this.loggerService.loggerError(this.form.controls.email.value, Parameters.methodNameGetInfoUser, this.form.controls.email.value, uid, err, Parameters.pathUser);
     });
 
     this.getGeneric$.unsubscribe();

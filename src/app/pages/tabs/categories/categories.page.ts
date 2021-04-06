@@ -22,6 +22,17 @@ export class CategoriesPage implements OnInit, OnDestroy {
   categories = [];
   user;
 
+  categoryTest = {
+    createDate: null,
+    description: "PELÍCULAS 1",
+    icon: "movies-one",
+    id: 1,
+    price: 0,
+    status: true,
+    updateDate: null,
+    words: [{ clue: "", description: "Titanic" }, { clue: "", description: "Harry Potter" }]
+  };
+
   getAllCategories$;
 
   constructor(
@@ -42,7 +53,7 @@ export class CategoriesPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getAllCategories();
+    // this.getAllCategories();
   }
 
   changeColor(index) {
@@ -59,31 +70,37 @@ export class CategoriesPage implements OnInit, OnDestroy {
 
   getAllCategories() {
     this.getAllCategories$ = this.firestoreService.getCollection(Parameters.pathCategories).subscribe(resp => {
+      // PENSAR SI BASTA CON EL ARRAY DE CATEGORIAS EN EL SESSION STORAGE
       this.categories = resp;
-      this.loggerService.logResponse(JSON.stringify(resp), Parameters.methodNameGetAllCategories, this.user.username, this.user.uid, Parameters.logsMessageUserGetAllCategories, Parameters.statusCodeSuccess, null, Parameters.pathCategories);
+      this.storageService.setCategories(resp);
+      // this.loggerService.logResponse(JSON.stringify(resp), Parameters.methodNameGetAllCategories, this.user.username, this.user.uid, Parameters.logsMessageUserGetAllCategories, Parameters.statusCodeSuccess, null, Parameters.pathCategories);
     }, err => {
-      this.loggerService.loggerError(null, Parameters.methodNameGetAllCategories, this.user.username, this.user.uid, err, Parameters.pathCategories);
+      // this.loggerService.loggerError(null, Parameters.methodNameGetAllCategories, this.user.username, this.user.uid, err, Parameters.pathCategories);
       this.handlerError.errorCategories(err.code);
     });
   }
 
-  showInstructions(categoria) {
+  showInstructions(cat) {
+    // TEST LINES -> DELETE FOR PDN
+    console.log('---> showInst: ', cat);
+    cat = this.categoryTest;
+
     const navigationExtras: NavigationExtras = {
       state: {
-        categoria: categoria
+        categoria: cat
       }
     };
-    this.router.navigate(['/tabs/home/instructions'], navigationExtras);
+    this.router.navigate(['/home/instructions'], navigationExtras);
   }
 
   logOut() {
     console.log('ENTRÓ AL LOGOUT');
     const resp = this.fireauth.logout().then(res => {
-      this.loggerService.logResponse(JSON.stringify(resp) , Parameters.methodNameLogOut, this.user.username, this.user.uid, Parameters.logsMessageLogOutSuccess, Parameters.statusCodeSuccess, null, Parameters.pathAuth);
+      // this.loggerService.logResponse(JSON.stringify(resp) , Parameters.methodNameLogOut, this.user.username, this.user.uid, Parameters.logsMessageLogOutSuccess, Parameters.statusCodeSuccess, null, Parameters.pathAuth);
       this.storageService.userEvent.emit(null);
       this.router.navigate(['/login']);
     }, err => {
-      this.loggerService.loggerError(null, Parameters.methodNameLogOut, this.user.username, this.user.uid, Parameters.logOutErrorService, Parameters.pathAuth);
+      //this.loggerService.loggerError(null, Parameters.methodNameLogOut, this.user.username, this.user.uid, Parameters.logOutErrorService, Parameters.pathAuth);
       this.handlerError.errorAuth(null, Parameters.logOutErrorService);
     });
     this.getAllCategories$.unsubscribe();

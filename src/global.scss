@@ -87,6 +87,10 @@ ion-content {
     height: 10%;
 }
 
+.hg-50p{
+    height: 50%;
+}
+
 .hg-90p{
     height: 90%;
 }
@@ -95,8 +99,16 @@ ion-content {
     height: 100%;
 }
 
+.wd-100p {
+    width: 100%;
+}
+
 .alg-self-cnt {
     align-self: center;
+}
+
+.jst-cnt-cen {
+    justify-content: center;
 }
 
 .alg-self-cnt ion-label {

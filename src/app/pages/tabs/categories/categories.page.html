@@ -1,6 +1,5 @@
 <ion-header>
   <ion-toolbar color="primary">
-    
     <ion-title>Categorias</ion-title>
     <ion-buttons slot="start">
       <ion-button class="dps-conts">
@@ -24,9 +23,10 @@
       <ng-template #responseOk>
         <ion-grid>
           <ion-row class="grid-ctg">
+            <ion-button class="ion-no-margin" type="button" expand="block" (click)="showInstructions('a')">PELICULA 1</ion-button>
             <ion-col class="col-icon-ctg" size="6" *ngFor="let category of categories; let i = index">
               <ion-grid>
-                <ion-row class="hg-100p">
+                <ion-row class="hg-100p" (click)="showInstructions(category)">
                   <ion-col size="12" class="img-ctg">
                     <div class="mt10">
                       <ion-label>

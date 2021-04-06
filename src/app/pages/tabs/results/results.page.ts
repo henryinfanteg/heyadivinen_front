@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Resultado } from '../../../shared/models/resultado';
+import { Result } from '../../../shared/models/result';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -9,26 +9,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ResultsPage implements OnInit {
 
-  objResultado: Resultado[] = [];
-  puntosTotales = 0;
+  objResult: Result[] = [];
+  score = 0;
 
   constructor(private route: ActivatedRoute, public router: Router) {
     this.route.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
-        this.objResultado = this.router.getCurrentNavigation().extras.state.resultados;
-        this.sumarPuntos();
+        this.objResult = this.router.getCurrentNavigation().extras.state.resultados;
+        this.scorePoints();
       }
     });
   }
 
   ngOnInit() {}
 
-  sumarPuntos() {
-    this.puntosTotales = this.objResultado.filter(resultado => resultado.puntos !== 0).reduce((sum, current) => sum + current.puntos, 0);
+  scorePoints() {
+    this.score = this.objResult.filter(res => res.points !== 0).reduce((sum, current) => sum + current.points, 0);
   }
 
   goToGame() {
-    this.router.navigate(['/tabs/home/board']);
+    this.router.navigate(['/home/board']);
   }
 
 }

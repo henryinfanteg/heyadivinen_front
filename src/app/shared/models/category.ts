@@ -1,6 +1,6 @@
 export class Category {
     uid: string;
-    id: string;
+    id: number;
     description: string;
     price: string;
     icon: string;
