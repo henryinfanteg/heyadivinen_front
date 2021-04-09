@@ -3,10 +3,10 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 
 const routes: Routes = [
-  {
+  /*{
     path: '',
     loadChildren: () => import('./pages/tabs/tabs/tabs.module').then(m => m.TabsPageModule)
-  },
+  },*/
   { path: 'home', loadChildren: './pages/tabs/home/home.module#HomePageModule' },
   {
     path: 'login',
@@ -15,6 +15,26 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./pages/tabs/register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'settings',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./pages/tabs/settings/settings.module').then(m => m.SettingsPageModule)
+          }
+        ]
+  },
+  {
+    path: 'contact',
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/tabs/contact/contact.module').then(m => m.ContactPageModule)
+      }
+    ]
   },
 ];
 @NgModule({

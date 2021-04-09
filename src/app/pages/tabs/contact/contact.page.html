@@ -1,34 +1,58 @@
-<ion-header translucent>
-  <ion-toolbar>
-    <ion-title>Escríbenos</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Contacto</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
-  <form [formGroup]="form">
-    <ion-list lines="full" class="ion-no-margin ion-no-padding">
-      <ion-item>
-        <ion-label position="stacked">Correo <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required type="email" formControlName="email"></ion-input>
-        <app-field-error-display [displayError]="isFieldInvalid(form.controls.email)" [errorMsg]="getFieldError(form.controls.email)"></app-field-error-display>
-      </ion-item>
+<ion-content color="primary">
+  <ion-grid class="ion-align-items-center">
+    <ion-row class="hg-10p"></ion-row>
+    <ion-row class="bg-curve hg-90p">
+      <ion-col>
+        <div>
+          <form [formGroup]="form">
+            <ion-list style="background-color: transparent;" lines="full" class="ion-no-margin ion-no-padding">
 
-      <ion-item>
-        <ion-label position="stacked">Asunto <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required type="text" formControlName="asunto" ></ion-input>
-        <app-field-error-display [displayError]="isFieldInvalid(form.controls.asunto)" [errorMsg]="getFieldError(form.controls.asunto)"></app-field-error-display>
-      </ion-item>
+              <ion-item>
+                <ion-label position="floating">Correo <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input required type="email" formControlName="email"></ion-input>
+                <app-field-error-display [displayError]="validatorComponent.isFieldInvalid(form.controls.email)"
+                  [errorMsg]="validatorComponent.getFieldError(form.controls.email)"></app-field-error-display>
+              </ion-item>
 
-      <ion-item>
-        <ion-label position="stacked">Mensaje <ion-text color="danger">*</ion-text></ion-label>
-        <ion-textarea formControlName="mensaje" required rows="12" ></ion-textarea>
-        <app-field-error-display [displayError]="isFieldInvalid(form.controls.mensaje)" [errorMsg]="getFieldError(form.controls.mensaje)"></app-field-error-display>
-      </ion-item>
-    </ion-list>
+              <ion-item>
+                <ion-label position="floating">Asunto <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-input required type="text" formControlName="subject"></ion-input>
+                <app-field-error-display [displayError]="validatorComponent.isFieldInvalid(form.controls.subject)"
+                  [errorMsg]="validatorComponent.getFieldError(form.controls.subject)"></app-field-error-display>
+              </ion-item>
 
-    <div class="ion-padding">
-      <ion-button expand="block" (click)="enviarMensaje()"
-      [disabled]="!this.form.valid" class="ion-no-margin">Enviar mensaje</ion-button>
-    </div>
-  </form>
+              <ion-item>
+                <ion-label position="floating">Mensaje <ion-text color="danger">*</ion-text>
+                </ion-label>
+                <ion-textarea formControlName="message" required rows="4"></ion-textarea>
+                <app-field-error-display [displayError]="validatorComponent.isFieldInvalid(form.controls.message)"
+                  [errorMsg]="validatorComponent.getFieldError(form.controls.message)"></app-field-error-display>
+              </ion-item>
+            </ion-list>
+
+            <div class="ion-padding">
+              <ion-button expand="block" (click)="sendMessage()" class="ion-no-margin">
+                Enviar mensaje
+              </ion-button>
+              <ion-button color="success" expand="block" target="_blank" 
+              href="https://api.whatsapp.com/send?phone=573002050466" class="ion-no-margin">
+                También tenemos
+                <ion-icon slot="end" name="logo-whatsapp"></ion-icon>
+              </ion-button>
+            </div>
+
+          </form>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>

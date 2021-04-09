@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/core/services/_service-util/storage.service';
 
 @Component({
@@ -10,19 +11,15 @@ export class TabsPage implements OnInit {
 
   user;
   
-  constructor(private storageService: StorageService) {
-    /*this.storageService.obsUser.subscribe(resp => {
-      console.log('TABS RESP: ', resp);
+  constructor(private storageService: StorageService, private router: Router, private activedRoute: ActivatedRoute) {
+    this.storageService.userEvent.subscribe(resp => {
       this.user = resp;
-    });*/
-    console.log('ENTRO AL TAB PAGE !!!!');
-    /* this.storageService.userEvent.subscribe(resp => {
-      console.log('TABS RESP: ', resp);
-      this.user = resp;
-    });*/
+    });
   }
 
-  ngOnInit() {
-    console.log('ngOnInit ENTRO AL TAB PAGE !!!!');
+  prueba() {
+    console.log('AAAAAAA: ', this.activedRoute);
   }
+
+  ngOnInit() {}
 }

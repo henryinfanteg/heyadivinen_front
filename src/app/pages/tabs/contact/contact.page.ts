@@ -2,9 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Config } from '../../../configs/config';
 import { ValidatorComponentUtil } from 'src/app/shared/util/validator-component-util';
-import { Contacto } from 'src/app/shared/models/contacto';
+import { Contact } from 'src/app/shared/models/contact';
 // import { NotifylUtil } from 'src/app/shared/util/notify-util';
 import { ContactService } from '../../../services/contact/contact.service';
+import { FirestoreService } from 'src/app/services/firebase/firestore.service';
+import { Parameters } from 'src/app/shared/parameters';
+import { ToastService } from 'src/app/core/services/_service-util/toast.service';
+import { HandlerErrorService } from 'src/app/services/handler-error.service';
+import { LoggerService } from 'src/app/services/logger.service';
 
 @Component({
   selector: 'app-contact',
@@ -15,11 +20,17 @@ export class ContactPage implements OnInit {
 
   form: FormGroup;
   isValidFormDatosUsuario = false;
-  contacto: Contacto;
+  contact: Contact;
+  validatorComponent = ValidatorComponentUtil;
 
-  constructor(private formBuilder: FormBuilder, private contactoService: ContactService
+  constructor(
+    private formBuilder: FormBuilder,
+    private firestore: FirestoreService,
+    private toastService: ToastService,
+    private handlerError: HandlerErrorService,
+    private loggerService: LoggerService
     // private notifyUtil: NotifylUtil
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.iniatializeForm();
@@ -28,38 +39,29 @@ export class ContactPage implements OnInit {
   iniatializeForm() {
     this.form = this.formBuilder.group({
       email: [null, Validators.compose([Validators.required, Validators.pattern(Config.validEmail)])],
-      asunto: [null, [Validators.minLength(2)]],
-      mensaje: [null, [Validators.minLength(2), Validators.required]]
+      subject: [null, [Validators.minLength(2)]],
+      message: [null, [Validators.minLength(2), Validators.required]]
     });
   }
 
-  isFieldInvalid(fieldControl: AbstractControl): boolean {
-    return ValidatorComponentUtil.isFieldInvalid(fieldControl);
+  sendMessage() {
+    if (this.form.valid) {
+      this.contact = new Contact();
+      this.contact.email = this.form.controls.email.value;
+      this.contact.subject = this.form.controls.subject.value;
+      this.contact.message = this.form.controls.message.value;
+      this.contact.status = Config.pending;
+
+      this.firestore.createGenericAutomaticId(this.contact, Parameters.pathContact).then(res => {
+        this.toastService.presentToast(Parameters.messageSent, Parameters.durationToastThree, Parameters.colorSuccess);
+      }, err => {
+        // this.loggerService.loggerError(this.form.controls.email.value, Parameters.methodNameSendMessage, this.form.controls.email.value, null, err, Parameters.pathAuth);
+        this.handlerError.errorContact(err);
+      });
+    } else {
+      this.validatorComponent.validateAllFormFields(this.form);
+    }
+
   }
-
-  getFieldError(fieldControl: AbstractControl, fieldType?: string): string {
-    return ValidatorComponentUtil.getFieldError(fieldControl, fieldType);
-  }
-
-  isRequired(fieldControl: AbstractControl): boolean {
-    return ValidatorComponentUtil.isRequired(fieldControl);
-  }
-
-  enviarMensaje() {
-    this.contacto = new Contacto();
-    this.contacto.correo = this.form.get('email').value;
-    this.contacto.asunto = this.form.get('asunto').value;
-    this.contacto.descripcion = this.form.get('mensaje').value;
-    this.contacto.estado = Config.pendiente;
-
-    this.contactoService.add(this.contacto).subscribe((response: any) => {
-      console.log('response enviarMensaje: ', response);
-      if (response != null && response.status === 201) {
-        // this.notifyUtil.successToast(Config.mensajeEnviado);
-      } else {
-        // this.notifyUtil.dangerToast(Config.errorIntenteMasTarde);
-      }
-    });
-}
 
 }

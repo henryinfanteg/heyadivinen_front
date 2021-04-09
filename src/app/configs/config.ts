@@ -27,7 +27,7 @@ export class Config {
     static validPassword = '^(?=[^A-Z]*[A-Z])(?=[^a-z]*[a-z])(?=\\D*\\d)[A-Za-z\\d!$%@#£€*?&]{6,}$';
 
     // Estados mensajes
-    static pendiente = 'PENDIENTE';
+    static pending = 'PENDIENTE';
 
     // APIS Existentes
     static apis = [

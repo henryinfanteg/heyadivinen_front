@@ -53,7 +53,7 @@ export class CategoriesPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.getAllCategories();
+    this.getAllCategories();
   }
 
   changeColor(index) {

@@ -4,6 +4,8 @@ export class Parameters {
     static pathCategories = 'categories/';
     static pathCategorieslogs = 'categories-logs/';
     static pathAuth = 'fireauth';
+    static pathContact = 'contact/';
+    static pathContactLogs = 'contact-logs/';
 
     // LOGS
     static logsCreate = 'CREATE';
@@ -22,6 +24,7 @@ export class Parameters {
     static methodNameGetInfoUser = 'getInfoUser';
     static methodNameGetAllCategories = 'getAllCategories';
     static methodNameLogOut = 'logout';
+    static methodNameSendMessage = 'sendMessage';
 
     static statusCodeCreate = 201;
     static statusCodeSuccess = 200;
@@ -34,12 +37,15 @@ export class Parameters {
     static actionCorrect = 'correct';
     static pointsHit = 3;
 
+    static messageSent = 'Mensaje enviado';
+
 
     // ERRRORS
     static genericErrorService = 'Ha ocurrido un error. Por favor intenta más tarde';
     static registerErrorService = 'Ha ocurrido un error con el registro. Por favor intenta más tarde';
     static signInErrorService = 'Ha ocurrido un error al iniciar sesión. Por favor intenta más tarde';
     static createUserErrorService = 'Ha ocurrido un error al crear el usuario. Por favor intenta más tarde';
+    static sendMessageErrorService = 'Ha ocurrido un error al enviar el mensaje. Por favor intenta más tarde';
     static logOutErrorService = 'Ha ocurrido un error al cerrar sesión. Por favor intenta más tarde';
     static emailExisteErrorService = 'Ya hay una cuenta creada con este correo. Si no recuerdes la contraseña, dale click en "Restablecer contraseña"';
     static passOrUserIncorrectErrorService = 'El usuario y/o contraseña son incorrectos. Si no recuerdes la contraseña, dale click en "Restablecer contraseña"';
@@ -48,4 +54,5 @@ export class Parameters {
     static durationToastThree = 5000;
 
     static colorError = 'danger';
+    static colorSuccess = 'success';
 }

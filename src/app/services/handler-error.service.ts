@@ -34,4 +34,11 @@ export class HandlerErrorService {
         this.toastService.presentToast(Parameters.createUserErrorService, Parameters.durationToastThree, Parameters.colorError);
     }
   }
+
+  errorContact(err: string, msg?: string) {
+    switch (err) {
+      default:
+        this.toastService.presentToast(Parameters.sendMessageErrorService, Parameters.durationToastThree, Parameters.colorError);
+    }
+  }
 }

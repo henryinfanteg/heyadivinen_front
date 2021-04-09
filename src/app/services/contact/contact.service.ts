@@ -7,7 +7,7 @@ import { Config } from '../../configs/config';
 import { catchError, tap, timeout } from 'rxjs/operators';
 
 import { HeadersUtil } from '../../core/services/_service-util/headers-util';
-import { Contacto } from 'src/app/shared/models/contacto';
+import { Contact } from 'src/app/shared/models/contact';
 
 @Injectable({ providedIn: 'root' })
 export class ContactService {
@@ -21,7 +21,7 @@ export class ContactService {
 
   constructor(private http: HttpClient) { }
 
-  add(obj: Contacto): Observable<Response> {
+  add(obj: Contact): Observable<Response> {
 
     // Headers
     let headers = null;
