@@ -35,7 +35,7 @@ const routes: Routes = [
           import('./pages/tabs/contact/contact.module').then(m => m.ContactPageModule)
       }
     ]
-  },
+  }
 ];
 @NgModule({
   imports: [

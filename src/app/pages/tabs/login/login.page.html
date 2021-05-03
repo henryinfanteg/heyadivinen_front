@@ -13,7 +13,7 @@
           <form [formGroup]="form">
             <ion-list style="background-color: transparent;" lines="full" class="ion-no-margin ion-no-padding">
               <ion-item>
-                <ion-label class="a-register">Aquí va un logo</ion-label>
+                <img class="logo" src="../../../../assets/img/logo-bg-trans.png"/>
               </ion-item>
               <ion-item>
                 <ion-label position="floating">Correo <ion-text color="danger">*</ion-text>
@@ -30,8 +30,9 @@
                 <app-field-error-display [displayError]="validatorComponent.isFieldInvalid(form.controls.password)"
                   [errorMsg]="validatorComponent.getFieldError(form.controls.password)"></app-field-error-display>
               </ion-item>
+                
             </ion-list>
-
+           
             <div class="ion-padding">
               <ion-button expand="block" (click)="signIn()" class="ion-no-margin">
                 Iniciar Sesión
@@ -48,6 +49,9 @@
 
             <div class="ion-padding a-register">
               <a [routerLink]="['/register']">Registro manual</a>
+            </div>
+            <div *ngIf="msgResend" class="ion-padding resend">
+              <p>Si quieres que te enviemos nuevamente el correo de verificación da clic <u (click)="reSendMail()">aquí</u></p>
             </div>
 
           </form>

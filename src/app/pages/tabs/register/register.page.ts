@@ -52,7 +52,7 @@ export class RegisterPage implements OnInit {
     }, {
       validator: MustMatch('password', 'confirmPassword')
     }
-);
+    );
   }
 
   signUp() {
@@ -82,8 +82,8 @@ export class RegisterPage implements OnInit {
     this.firestore.createGeneric(user, Parameters.pathUser, user.uid).then(res => {
       console.log('createUser res: ', res);
       this.loggerService.logResponse(user, Parameters.methodNameCreateUser, user.username, user.uid, Parameters.logsMessageUserCreated, Parameters.statusCodeCreate, user, Parameters.pathUser);
+      this.router.navigate(['/verify-mail']);
       this.storageService.userEvent.emit(user);
-      this.router.navigate(['/home']);
     }).catch(err => {
       console.log('createUser err: ', err);
       this.loggerService.loggerError(user, Parameters.methodNameCreateUser, user.username, user.uid, err, Parameters.pathUser);

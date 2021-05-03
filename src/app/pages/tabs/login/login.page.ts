@@ -21,6 +21,8 @@ export class LoginPage implements OnInit, OnDestroy {
 
   form: FormGroup;
   validatorComponent = ValidatorComponentUtil;
+  msgResend = false;
+  userCredential;
 
   getGeneric$;
 
@@ -42,7 +44,6 @@ export class LoginPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.iniatializeForm();
     console.log('USER LOGIN:::: ', this.storageService.getDataUser());
-    ;
   }
 
   iniatializeForm() {
@@ -56,7 +57,15 @@ export class LoginPage implements OnInit, OnDestroy {
     if (this.form.valid) {
       this.fireauth.login(this.form.controls.email.value, this.form.controls.password.value).then(res => {
         console.log('___> res sign in: ', res);
-        this.getInfoUser(res.user.uid);
+        if(res.user.emailVerified) {
+          this.getInfoUser(res.user.uid);
+        } else {
+          console.log('**** EMAIL NO VERIFICADO LOGIN');
+          this.handlerError.errorAuth(Parameters.emailNoVerified, Parameters.emailNoVerifiedMsg);
+          this.msgResend = true;
+          this.userCredential = res;
+        }
+        
         // this.loggerService.logResponse(res.user, Parameters.methodNameSignIn, res.user.uid, res.user.uid, Parameters.logsMessageUserSignIn, Parameters.statusCodeSuccess, this.form.controls.email.value, Parameters.pathAuth);
       }, err => {
         console.log('---> err sign in:', err);
@@ -83,6 +92,14 @@ export class LoginPage implements OnInit, OnDestroy {
     });
 
     this.getGeneric$.unsubscribe();
+  }
+
+  reSendMail() {
+    this.fireauth.sendEmailVerification(this.userCredential).then(res => {
+      this.toastService.presentToast(Parameters.msgMailSentSuccess, Parameters.durationToastThree, Parameters. colorSuccess);
+    }, err => {
+      this.toastService.presentToast(Parameters.sendMessageErrorService, Parameters.durationToastThree, Parameters.colorError);
+    });
   }
 
 }

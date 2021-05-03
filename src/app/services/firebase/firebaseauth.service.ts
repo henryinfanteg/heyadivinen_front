@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase/app';
+import { Parameters } from 'src/app/shared/parameters';
+import { LoggerService } from '../logger.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseauthService {
 
-  constructor(public auth: AngularFireAuth) {
+  constructor(public auth: AngularFireAuth, private loggerService: LoggerService) {
     // colocar lo logica de redirección si no está logueado o si lo está
     // console.log('-----> usr: ', this.getUid());
   }
@@ -21,8 +23,16 @@ export class FirebaseauthService {
     return await this.auth.signOut();
   }
 
-  register(mail: string, pass: string) {
-    return this.auth.createUserWithEmailAndPassword(mail, pass);
+  async register(mail: string, pass: string) {
+    const userCredential = await this.auth.createUserWithEmailAndPassword(mail, pass);
+    await userCredential.user.sendEmailVerification().then(res => {
+      this.loggerService.logResponse(res, Parameters.methodNameSignUp, mail, userCredential.user.uid, Parameters.logsMessageEmailVerificationSent, Parameters.statusCodeSuccess, mail, Parameters.pathAuth);
+    });
+    return userCredential;
+  }
+
+  async sendEmailVerification(userCredential: Promise<firebase.auth.UserCredential>) {
+    return (await userCredential).user.sendEmailVerification();
   }
 
   async getUid() {

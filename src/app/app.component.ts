@@ -32,13 +32,17 @@ export class AppComponent {
       this.fireauth.stateAuth().subscribe(res => {
         console.log('**** res stateAuth: ', res);
         if (res !== null) {
-          console.log('**** ENTRO NULLLL');
-          const user = new User();
-          user.uid = res.uid;
-          user.username = res.email;
-          this.storageService.userEvent.emit(user);
-          // this.storageService.setDataUser(user);
-          this.router.navigate(['/home']);
+          if (res.emailVerified) {
+            console.log('**** ENTRO NULLLL');
+            const user = new User();
+            user.uid = res.uid;
+            user.username = res.email;
+            this.storageService.userEvent.emit(user);
+            // this.storageService.setDataUser(user);
+            this.router.navigate(['/home']);
+          } else {
+            console.log('**** EMAIL NO VERIFICADO');
+          }
         } else {
           this.router.navigate(['/login']);
         }

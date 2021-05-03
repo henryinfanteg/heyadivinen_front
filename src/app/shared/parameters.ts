@@ -12,6 +12,7 @@ export class Parameters {
     static logsLevelInfo = 'INFO';
     static logsLevelError = 'ERROR';
     static logsMessageUserCreated = 'USER CREATED';
+    static logsMessageEmailVerificationSent = 'VERIFICATION EMAIL SENT';
     static logsMessageGetCreated = 'GET USER';
     static logsMessageUserSignUp = 'USER SIGN UP';
     static logsMessageUserSignIn = 'USER SIGN IN';
@@ -50,9 +51,13 @@ export class Parameters {
     static emailExisteErrorService = 'Ya hay una cuenta creada con este correo. Si no recuerdes la contraseña, dale click en "Restablecer contraseña"';
     static passOrUserIncorrectErrorService = 'El usuario y/o contraseña son incorrectos. Si no recuerdes la contraseña, dale click en "Restablecer contraseña"';
     static getAllCategoriesErrorService = 'Ha ocurrido un error al obtener las categorías. Por favor intenta más tarde';
-
+    static emailNoVerified = 'email-no-verified';
+    static emailNoVerifiedMsg = 'No se ha verificado su cuenta. Revise su correo electrónico incluyendo los "no deseados"';
     static durationToastThree = 5000;
+    static durationToastTen = 10000;
 
     static colorError = 'danger';
     static colorSuccess = 'success';
+
+    static msgMailSentSuccess = 'Hemos enviado nuevamente el correo de verificación';
 }

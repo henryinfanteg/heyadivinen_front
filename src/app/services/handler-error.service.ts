@@ -16,6 +16,9 @@ export class HandlerErrorService {
       case 'auth/email-already-in-use':
         this.toastService.presentToast(msg, Parameters.durationToastThree, Parameters.colorError);
         break;
+      case 'email-no-verified':
+        this.toastService.presentToast(msg, Parameters.durationToastTen, Parameters.colorError);
+        break;
       default:
         this.toastService.presentToast(Parameters.genericErrorService, Parameters.durationToastThree, Parameters.colorError);
     }
