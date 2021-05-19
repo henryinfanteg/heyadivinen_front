@@ -10,10 +10,21 @@ export class StorageService {
 
     userEvent = new EventEmitter<User>();
     categories = [];
+    user = new User();
 
     constructor() { }
 
+    getUser(){
+        return this.user;
+    }
+
+    setUser(usr: User) {
+        this.user = usr;
+        return this.user;
+    }
+
     getDataUser() {
+        console.log('emitterrrr: ', this.userEvent);
         return this.userEvent;
     }
 

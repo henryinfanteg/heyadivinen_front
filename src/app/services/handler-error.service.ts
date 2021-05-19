@@ -31,10 +31,10 @@ export class HandlerErrorService {
     }
   }
 
-  errorUser(err: string, msg?: string) {
+  errorUser(err: string, msg: string) {
     switch (err) {
       default:
-        this.toastService.presentToast(Parameters.createUserErrorService, Parameters.durationToastThree, Parameters.colorError);
+        this.toastService.presentToast(msg, Parameters.durationToastThree, Parameters.colorError);
     }
   }
 

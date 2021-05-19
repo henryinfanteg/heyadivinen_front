@@ -9,4 +9,11 @@ export class User {
     status = true;
     creationDate = new Date();
     modifyDate: Date;
+    parameters = 
+        {
+            countryPreference: 'CO',
+            initYear: 0,
+            endYear: 0
+        }
+    
 }

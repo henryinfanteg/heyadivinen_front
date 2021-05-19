@@ -18,11 +18,11 @@ import { FieldErrorDisplayComponent } from 'src/app/components/field-error-displ
     CommonModule,
     FormsModule,
     RouterModule.forChild([
-      { path: '', redirectTo: 'categories' },
       { path: 'categories', component: CategoriesPage },
       { path: 'instructions', component: InstructionsPage },
       { path: 'board', component: BoardPage },
       { path: 'results', component: ResultsPage },
+      { path: '**', redirectTo: 'categories' }
     ])
   ],
   declarations: [HomePage, FieldErrorDisplayComponent, InstructionsPage, CategoriesPage, BoardPage, ResultsPage, RetryRequestComponent ]

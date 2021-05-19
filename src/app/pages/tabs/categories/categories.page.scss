@@ -7,7 +7,8 @@ ion-icon{
 }
 
 ion-grid {
-    height: 100%;
+    height: auto;
+    margin: 10px 5px 0 5px;
 }
 
 h5{
@@ -25,8 +26,8 @@ h5{
 .img-ctg {
     background-image: url('../../../../assets/img/img-example.svg');
     background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
+    background-size: cover;
+    height: 120px;
 }
 
 .grid-ctg {
@@ -36,4 +37,9 @@ h5{
 .col-icon-ctg {
     height: 30%;
     cursor: pointer;
+}
+
+.img-icon {
+    width: 50%;
+    height: 80px;
 }

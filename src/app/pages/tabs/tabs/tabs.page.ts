@@ -17,9 +17,5 @@ export class TabsPage implements OnInit {
     });
   }
 
-  prueba() {
-    console.log('AAAAAAA: ', this.activedRoute);
-  }
-
   ngOnInit() {}
 }

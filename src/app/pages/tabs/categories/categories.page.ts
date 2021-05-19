@@ -9,6 +9,7 @@ import { Parameters } from 'src/app/shared/parameters';
 import { StorageService } from 'src/app/core/services/_service-util/storage.service';
 import { HandlerErrorService } from 'src/app/services/handler-error.service';
 import { LoggerService } from 'src/app/services/logger.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-categories',
@@ -20,7 +21,7 @@ export class CategoriesPage implements OnInit, OnDestroy {
   templateRetry = false;
 
   categories = [];
-  user;
+  user = this.storageService.getUser();
 
   categoryTest = {
     createDate: null,
@@ -45,7 +46,10 @@ export class CategoriesPage implements OnInit, OnDestroy {
     private handlerError: HandlerErrorService
     //, private loaderService: LoaderService
   ) {
-    this.user = this.storageService.getDataUser();
+    this.storageService.userEvent.subscribe((usr: User) => {
+      this.user = usr;
+      console.log('/// CAT: user cambió: ', usr);
+    });
   }
   ngOnDestroy(): void {
     this.storageService.userEvent.unsubscribe();
@@ -53,7 +57,8 @@ export class CategoriesPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getAllCategories();
+    console.log('-----> user in cat: ', this.user);
+    // this.getAllCategories();
   }
 
   changeColor(index) {

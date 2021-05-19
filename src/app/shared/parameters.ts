@@ -18,6 +18,7 @@ export class Parameters {
     static logsMessageUserSignIn = 'USER SIGN IN';
     static logsMessageUserGetAllCategories = 'ALL CATEGORIES GOT';
     static logsMessageLogOutSuccess = 'LOG OUT SUCCESS';
+    static logsMessageUpdateUserParamsSuccess = 'LOG OUT SUCCESS';
     
     static methodNameCreateUser = 'createUser';
     static methodNameSignUp = 'signUp';
@@ -26,6 +27,7 @@ export class Parameters {
     static methodNameGetAllCategories = 'getAllCategories';
     static methodNameLogOut = 'logout';
     static methodNameSendMessage = 'sendMessage';
+    static methodNameUpdateUserParams = 'updateUserParams';
 
     static statusCodeCreate = 201;
     static statusCodeSuccess = 200;
@@ -46,6 +48,7 @@ export class Parameters {
     static registerErrorService = 'Ha ocurrido un error con el registro. Por favor intenta más tarde';
     static signInErrorService = 'Ha ocurrido un error al iniciar sesión. Por favor intenta más tarde';
     static createUserErrorService = 'Ha ocurrido un error al crear el usuario. Por favor intenta más tarde';
+    static updateUserErrorService = 'Ha ocurrido un error al actualizar el usuario. Por favor intenta más tarde';
     static sendMessageErrorService = 'Ha ocurrido un error al enviar el mensaje. Por favor intenta más tarde';
     static logOutErrorService = 'Ha ocurrido un error al cerrar sesión. Por favor intenta más tarde';
     static emailExisteErrorService = 'Ya hay una cuenta creada con este correo. Si no recuerdes la contraseña, dale click en "Restablecer contraseña"';

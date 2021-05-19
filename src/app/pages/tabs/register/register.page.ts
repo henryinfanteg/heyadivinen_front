@@ -88,7 +88,7 @@ export class RegisterPage implements OnInit {
       console.log('createUser err: ', err);
       this.loggerService.loggerError(user, Parameters.methodNameCreateUser, user.username, user.uid, err, Parameters.pathUser);
       if (err) {
-        this.handlerError.errorUser(err.code);
+        this.handlerError.errorUser(err.code, Parameters.createUserErrorService);
       }
     });
   }

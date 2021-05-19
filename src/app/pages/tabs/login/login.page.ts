@@ -11,6 +11,7 @@ import { User } from 'src/app/shared/models/user';
 import { Parameters } from 'src/app/shared/parameters';
 import { HandlerErrorService } from 'src/app/services/handler-error.service';
 import { ValidatorComponentUtil } from 'src/app/shared/util/validator-component-util';
+import { shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,6 @@ export class LoginPage implements OnInit, OnDestroy {
   validatorComponent = ValidatorComponentUtil;
   msgResend = false;
   userCredential;
-
   getGeneric$;
 
   constructor(
@@ -58,7 +58,9 @@ export class LoginPage implements OnInit, OnDestroy {
       this.fireauth.login(this.form.controls.email.value, this.form.controls.password.value).then(res => {
         console.log('___> res sign in: ', res);
         if(res.user.emailVerified) {
-          this.getInfoUser(res.user.uid);
+          let usr = new User();
+          usr.uid = res.user.uid;
+          this.storageService.userEvent.emit(usr);
         } else {
           console.log('**** EMAIL NO VERIFICADO LOGIN');
           this.handlerError.errorAuth(Parameters.emailNoVerified, Parameters.emailNoVerifiedMsg);
@@ -80,19 +82,6 @@ export class LoginPage implements OnInit, OnDestroy {
 
   }
 
-  getInfoUser(uid) {
-    this.getGeneric$ = this.firestore.getGeneric(Parameters.pathUser, uid).subscribe((resp: User) => {
-      console.log('----> getInfoUser : ', resp);
-      // this.loggerService.logResponse(resp, Parameters.methodNameGetInfoUser, resp.username, resp.uid, Parameters.logsMessageUserSignIn, Parameters.statusCodeSuccess, this.form.controls.email.value, Parameters.pathUser);
-      this.storageService.userEvent.emit(resp);
-      this.router.navigate(['home']);
-    }, err => {
-      this.handlerError.errorUser(err.code, Parameters.logsMessageGetCreated);
-      // this.loggerService.loggerError(this.form.controls.email.value, Parameters.methodNameGetInfoUser, this.form.controls.email.value, uid, err, Parameters.pathUser);
-    });
-
-    this.getGeneric$.unsubscribe();
-  }
 
   reSendMail() {
     this.fireauth.sendEmailVerification(this.userCredential).then(res => {
