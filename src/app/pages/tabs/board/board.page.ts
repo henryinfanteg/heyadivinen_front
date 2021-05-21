@@ -18,15 +18,17 @@ export class BoardPage implements OnInit {
   maxTimeIntro: number;
   maxTimeBoard: number;
   words = [];
+  wordsRandom = [];
   wordOnBoard = '';
   position = 0;
   results: Result[] = [];
   result: Result = new Result();
   objCategory: Category = new Category();
+  categories = this.storageService.categories;
 
   // DELETE THIS OBJECT FOR PDN
-  wordsTest = [];
-  categoriesTest = [
+  //wordsTest = [];
+  /*categoriesTest = [
     {
       description: "PELÍCULAS 1",
       icon: "movies-one",
@@ -59,7 +61,7 @@ export class BoardPage implements OnInit {
       status: true,
       words: [{ clue: "", description: "Pierce Brosnan" }, { clue: "", description: "Brad Pitt" }]
     }
-  ];
+  ];*/
 
   constructor(
     private route: ActivatedRoute,
@@ -82,20 +84,19 @@ export class BoardPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log('board get categories: ', this.storageService.getCategories());
     this.initialize();
   }
 
   startTimerIntro() {
     this.changeWord(null);
     const interval = setInterval(x => {
-          if (this.maxTimeIntro > 0) {
-            this.maxTimeIntro -= 1;
-          } else if (this.maxTimeIntro === 0) {
-            clearInterval(interval);
-            this.startTimerBoard();
-          }
-      }, 1000);
+      if (this.maxTimeIntro > 0) {
+        this.maxTimeIntro -= 1;
+      } else if (this.maxTimeIntro === 0) {
+        clearInterval(interval);
+        this.startTimerBoard();
+      }
+    }, 1000);
   }
 
   startTimerBoard() {
@@ -110,27 +111,22 @@ export class BoardPage implements OnInit {
   }
 
   getAllWordsXcategoryId() {
-    /*const params = new Map<string, any>();
-    params.set('estado', true);
-    params.set('page[number]', this.currentPage);
-    params.set('page[size]', this.pageSize);
-    // this.loaderService.present();
-    this.palabraService.getPalabrasByCategoriaId(this.objCategory.id, params).subscribe((response: any) => {
-      // this.loaderService.dismiss();
-      if (response && response.status === 200) {
-        this.words = response.body;
-        this.startTimerIntro();
+    this.categories.filter(cat => {
+      if (cat.id === this.objCategory.id + '') {
+        this.words = cat.words;
       }
     });
-    */
-   this.categoriesTest.filter(cat => {
-     if(cat.id === this.objCategory.id) {
-      this.words = cat.words;
-      this.startTimerIntro();
-     }
-   });
+    this.getRandomWords(this.words);
+  }
 
-   console.log('---> this.wordsTest: ', this.words);
+  getRandomWords(wordsArray) {
+    for (var i = 0; i < 10; i++) {
+      var randomChoice = wordsArray[~~(Math.random() * wordsArray.length)]
+      this.wordsRandom.push(randomChoice)
+      let indexSplice = wordsArray.indexOf(randomChoice);
+      wordsArray.splice(indexSplice, 1);
+    }
+    this.startTimerIntro();
   }
 
 
@@ -149,10 +145,9 @@ export class BoardPage implements OnInit {
   }
 
   showWord() {
-    console.log('---> words.length: ', this.words.length);
-    if (this.words.length) {
-      this.wordOnBoard = this.words[this.position].description;
-      this.words.splice(this.position, 1);
+    if (this.wordsRandom.length) {
+      this.wordOnBoard = this.wordsRandom[this.position].description;
+      this.wordsRandom.splice(this.position, 1);
       this.result = new Result();
     } else {
       this.showResults();

@@ -44,4 +44,8 @@ export class HandlerErrorService {
         this.toastService.presentToast(Parameters.sendMessageErrorService, Parameters.durationToastThree, Parameters.colorError);
     }
   }
+
+  msgGeneric(msg: string, color: string) {
+    this.toastService.presentToast(msg, Parameters.durationToastThree, color);
+  }
 }

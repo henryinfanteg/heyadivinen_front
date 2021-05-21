@@ -63,4 +63,5 @@ export class Parameters {
     static colorSuccess = 'success';
 
     static msgMailSentSuccess = 'Hemos enviado nuevamente el correo de verificación';
+    static msgUpdateParamsUserSuccess = 'Se ha guardado la configuración correctamente';
 }

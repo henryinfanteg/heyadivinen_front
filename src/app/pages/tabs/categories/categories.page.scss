@@ -24,10 +24,9 @@ h5{
 }
 
 .img-ctg {
-    background-image: url('../../../../assets/img/img-example.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
     height: 120px;
+    background-color: #EDF22C;
+    border-radius: 10px;
 }
 
 .grid-ctg {
@@ -42,4 +41,12 @@ h5{
 .img-icon {
     width: 50%;
     height: 80px;
+}
+
+.bg-curve {
+    padding-top: 0;
+}
+
+.icon-mini {
+    color:black
 }

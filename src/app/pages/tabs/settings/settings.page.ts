@@ -85,6 +85,7 @@ export class SettingsPage implements OnInit {
       this.firestore.updateGeneric(this.user, Parameters.pathUser, this.user.uid).then((resp) => {
         // this.loggerService.logResponse(JSON.stringify(resp) , Parameters.methodNameUpdateUserParams, this.user.username, this.user.uid, Parameters.logsMessageUpdateUserParamsSuccess, Parameters.statusCodeSuccess, null, Parameters.pathUser);
         this.storageService.userEvent.emit(this.user);
+        this.handlerError.msgGeneric(Parameters.msgUpdateParamsUserSuccess, Parameters.colorSuccess);
       }).catch(err => {
         // this.loggerService.loggerError(null, Parameters.methodNameUpdateUserParams, this.user.username, this.user.uid, Parameters.genericErrorService, Parameters.pathUser);
         if (err) {

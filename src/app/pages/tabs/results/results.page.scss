@@ -4,6 +4,16 @@
 }
 
 ion-grid {
-    height: 100%;
-    margin: 0 5px;
+    height: auto;
+    margin: 10px 5px 0 5px;
+}
+
+.boxbt {
+    border-bottom: 2px solid #5C4DB1;
+    
+}
+
+.col-pt {
+    border-left: 2px solid #5C4DB1;
+    text-align: center;
 }

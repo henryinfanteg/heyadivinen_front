@@ -58,7 +58,7 @@ export class CategoriesPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('-----> user in cat: ', this.user);
-    // this.getAllCategories();
+    this.getAllCategories();
   }
 
   changeColor(index) {
