@@ -11,9 +11,7 @@ export class HomePage implements OnInit {
   constructor() {
   }
 
-  ngOnInit() {
-    console.log('**** ENTRO HOME PAGEEEEE');
-  }
+  ngOnInit() {}
 
   
 

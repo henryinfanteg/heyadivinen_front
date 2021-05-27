@@ -6,11 +6,17 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { SettingsPage } from './settings.page';
+import { WordSuggestionPage } from '../word-suggestion/word-suggestion.page';
+import { FieldErrorDisplayComponent } from 'src/app/components/field-error-display/field-error-display.component';
 
 const routes: Routes = [
   {
     path: '',
     component: SettingsPage
+  }, 
+  {
+    path: 'suggestion',
+    component: WordSuggestionPage
   }
 ];
 
@@ -22,6 +28,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [SettingsPage]
+  declarations: [SettingsPage, WordSuggestionPage, FieldErrorDisplayComponent]
 })
-export class SettingsPageModule {}
+export class SettingsPageModule { }

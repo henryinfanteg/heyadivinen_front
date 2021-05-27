@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from 'src/app/core/services/_service-util/storage.service';
 import { ToastService } from 'src/app/core/services/_service-util/toast.service';
 import { FirebaseauthService } from 'src/app/services/firebase/firebaseauth.service';
@@ -30,7 +30,8 @@ export class SettingsPage implements OnInit {
     private storageService: StorageService,
     private loggerService: LoggerService,
     private handlerError: HandlerErrorService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private activedRoute: ActivatedRoute) {
       this.fillYears();
     this.storageService.userEvent.subscribe((usr: User) => {
       this.user = usr;
@@ -96,6 +97,10 @@ export class SettingsPage implements OnInit {
       this.validatorComponent.validateAllFormFields(this.form);
     }
 
+  }
+
+  prueba() {
+    console.log('----> router:: ', this.activedRoute);
   }
 
 }

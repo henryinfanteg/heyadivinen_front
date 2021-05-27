@@ -6,6 +6,7 @@ export class Parameters {
     static pathAuth = 'fireauth';
     static pathContact = 'contact/';
     static pathContactLogs = 'contact-logs/';
+    static pathSuggestion = 'suggestion/';
 
     // LOGS
     static logsCreate = 'CREATE';
