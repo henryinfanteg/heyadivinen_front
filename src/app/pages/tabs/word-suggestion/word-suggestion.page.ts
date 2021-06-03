@@ -1,4 +1,3 @@
-import { tokenName } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/_service-util/toast.service';
@@ -43,19 +42,17 @@ export class WordSuggestionPage implements OnInit {
 
   sendSuggestion() {
     if (this.form.valid) {
-      console.log('111');
       this.suggestion = new Suggestion();
       this.suggestion.category = this.form.controls.category.value;
       this.suggestion.words = this.form.controls.words.value;
 
       this.firestore.createGenericAutomaticId(this.suggestion, Parameters.pathSuggestion).then(res => {
-        this.toastService.presentToast(Parameters.messageSent, Parameters.durationToastThree, Parameters.colorSuccess);
+        this.toastService.presentToast(Parameters.suggestionSent, Parameters.durationToastThree, Parameters.colorSuccess);
       }, err => {
         // this.loggerService.loggerError(this.form.controls.email.value, Parameters.methodNameSendMessage, this.form.controls.email.value, null, err, Parameters.pathAuth);
         this.handlerError.errorContact(err);
       });
     } else {
-      console.log('222');
       this.validatorComponent.validateAllFormFields(this.form);
     }
 

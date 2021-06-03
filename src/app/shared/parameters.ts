@@ -42,6 +42,7 @@ export class Parameters {
     static pointsHit = 3;
 
     static messageSent = 'Mensaje enviado';
+    static suggestionSent = 'Sugerencia enviada';
 
 
     // ERRRORS

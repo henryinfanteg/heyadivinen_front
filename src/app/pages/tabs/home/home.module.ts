@@ -2,7 +2,7 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { ResultsPage } from '../results/results.page';
 import { InstructionsPage } from '../instructions/instructions.page';
 import { CategoriesPage } from '../categories/categories.page';
@@ -25,6 +25,6 @@ import { FieldErrorDisplayComponent } from 'src/app/components/field-error-displ
       { path: '**', redirectTo: 'categories' }
     ])
   ],
-  declarations: [HomePage, FieldErrorDisplayComponent, InstructionsPage, CategoriesPage, BoardPage, ResultsPage, RetryRequestComponent ]
+  declarations: [HomePage, FieldErrorDisplayComponent, InstructionsPage, CategoriesPage, BoardPage, ResultsPage, RetryRequestComponent]
 })
 export class HomePageModule {}

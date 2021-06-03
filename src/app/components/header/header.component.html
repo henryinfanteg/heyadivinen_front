@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{namePage}}</ion-title>
+    <ion-buttons *ngIf="user && user.uid" slot="start">
+      <ion-button class="dps-conts" (click)="goToProfile()">
+        <ion-icon name="person-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons *ngIf="user && user.uid" slot="primary">
+      <ion-button class="dps-conts" (click)="logOut()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>

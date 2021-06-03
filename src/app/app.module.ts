@@ -18,11 +18,12 @@ import { ToastService } from './core/services/_service-util/toast.service';
 import { TabsPage } from './pages/tabs/tabs/tabs.page';
 import { LoggerService } from './services/logger.service';
 import { HandlerErrorService } from './services/handler-error.service';
+import { HeaderComponent } from './components/header/header.component';
 // import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
 // import { NotifylUtil } from 'src/app/shared/util/notify-util';
 
 @NgModule({
-  declarations: [AppComponent, TabsPage],
+  declarations: [AppComponent, TabsPage, HeaderComponent],
   entryComponents: [],
   imports: [
     BrowserModule,

@@ -35,6 +35,10 @@ const routes: Routes = [
           import('./pages/tabs/contact/contact.module').then(m => m.ContactPageModule)
       }
     ]
+  },
+  {
+    path: 'user-profile',
+    loadChildren: () => import('./pages/tabs/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
   }
 ];
 @NgModule({

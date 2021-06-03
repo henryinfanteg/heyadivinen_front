@@ -48,7 +48,6 @@ export class CategoriesPage implements OnInit, OnDestroy {
   ) {
     this.storageService.userEvent.subscribe((usr: User) => {
       this.user = usr;
-      console.log('/// CAT: user cambió: ', usr);
     });
   }
   ngOnDestroy(): void {
@@ -57,7 +56,6 @@ export class CategoriesPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.log('-----> user in cat: ', this.user);
     this.getAllCategories();
   }
 
@@ -86,8 +84,6 @@ export class CategoriesPage implements OnInit, OnDestroy {
   }
 
   showInstructions(cat) {
-    // TEST LINES -> DELETE FOR PDN
-    console.log('---> showInst: ', cat);
     cat = this.categoryTest;
 
     const navigationExtras: NavigationExtras = {
@@ -98,18 +94,7 @@ export class CategoriesPage implements OnInit, OnDestroy {
     this.router.navigate(['/home/instructions'], navigationExtras);
   }
 
-  logOut() {
-    console.log('ENTRÓ AL LOGOUT');
-    const resp = this.fireauth.logout().then(res => {
-      // this.loggerService.logResponse(JSON.stringify(resp) , Parameters.methodNameLogOut, this.user.username, this.user.uid, Parameters.logsMessageLogOutSuccess, Parameters.statusCodeSuccess, null, Parameters.pathAuth);
-      this.storageService.userEvent.emit(null);
-      this.router.navigate(['/login']);
-    }, err => {
-      //this.loggerService.loggerError(null, Parameters.methodNameLogOut, this.user.username, this.user.uid, Parameters.logOutErrorService, Parameters.pathAuth);
-      this.handlerError.errorAuth(null, Parameters.logOutErrorService);
-    });
-    this.getAllCategories$.unsubscribe();
-  }
+  
 }
 
 
