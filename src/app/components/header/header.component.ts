@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Plugins } from '@capacitor/core';
 import { StorageService } from 'src/app/core/services/_service-util/storage.service';
 import { FirebaseauthService } from 'src/app/services/firebase/firebaseauth.service';
 import { HandlerErrorService } from 'src/app/services/handler-error.service';
@@ -49,6 +50,11 @@ export class HeaderComponent implements OnInit {
       //this.loggerService.loggerError(null, Parameters.methodNameLogOut, this.user.username, this.user.uid, Parameters.logOutErrorService, Parameters.pathAuth);
       this.handlerError.errorAuth(null, Parameters.logOutErrorService);
     });
+  }
+
+  async signOut(): Promise<void> {
+    await Plugins.FacebookLogin.logout();
+    this.router.navigate(['/login']);
   }
 
 }

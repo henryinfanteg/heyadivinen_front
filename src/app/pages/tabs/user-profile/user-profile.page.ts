@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Config } from 'src/app/configs/config';
+import { StorageService } from 'src/app/core/services/_service-util/storage.service';
 import { ValidatorComponentUtil } from 'src/app/shared/util/validator-component-util';
 
 @Component({
@@ -12,8 +13,11 @@ export class UserProfilePage implements OnInit {
 
   form: FormGroup;
   validatorComponent = ValidatorComponentUtil;
+  user = this.storageService.getUser();
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private storageService: StorageService) { }
 
   ngOnInit() {
     this.iniatializeForm();
@@ -21,7 +25,8 @@ export class UserProfilePage implements OnInit {
 
   iniatializeForm() {
     this.form = this.formBuilder.group({
-      email: ['henryinfanteg@gmail.com', Validators.compose([Validators.required, Validators.pattern(Config.validEmail)])]
+      birthDate: [this.user.birthDate, [Validators.minLength(2)]],
+      email: [this.user.username, Validators.compose([Validators.required, Validators.pattern(Config.validEmail)])]
     });
   }
 

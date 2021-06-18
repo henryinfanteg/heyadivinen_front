@@ -1,4 +1,4 @@
-import { Plugins, StatusBarStyle } from "@capacitor/core";
+import { Plugins, registerWebPlugin, StatusBarStyle } from "@capacitor/core";
 import { Platform } from "@ionic/angular";
 import { Component } from '@angular/core';
 import { FirebaseauthService } from "./services/firebase/firebaseauth.service";
@@ -8,6 +8,7 @@ import { User } from "./shared/models/user";
 import { FirestoreService } from "./services/firebase/firestore.service";
 import { Parameters } from "./shared/parameters";
 import { HandlerErrorService } from "./services/handler-error.service";
+import { FacebookLogin } from "@rdlabo/capacitor-facebook-login";
 
 
 @Component({
@@ -28,6 +29,7 @@ export class AppComponent {
     private firestore: FirestoreService,
     private handlerError: HandlerErrorService
   ) {
+    registerWebPlugin(FacebookLogin);
     this.initializeApp();
   }
 
@@ -52,7 +54,16 @@ export class AppComponent {
         if (res !== null) {
           if (res.emailVerified) {
             console.log('**** APP: User autenticado y email verificado');
-            this.getInfoUser(res.uid);
+            const methoAuth = this.storageService.getUser().methodAuth;
+            if (methoAuth === Parameters.facebookMethodAuth) {
+              // this.getUserInfo();
+              console.log('logueado con fbbb !!!!');
+            } else if (methoAuth === Parameters.googleMethodAuth) {
+              console.log('OBTENER USUARIO DE ACCOUNT OF GOOGLE');
+            } else {
+              this.getInfoUser(res.uid);
+            }
+
 
 
 
@@ -70,7 +81,7 @@ export class AppComponent {
           this.router.navigate(['/login']);
         }
       });
-    });   
+    });
   }
 
   getInfoUser(uid) {
@@ -85,4 +96,11 @@ export class AppComponent {
       // this.loggerService.loggerError(this.form.controls.email.value, Parameters.methodNameGetInfoUser, this.form.controls.email.value, uid, err, Parameters.pathUser);
     });
   }
+
+  /*async getUserInfo() {
+    const response = await fetch(`https://graph.facebook.com/${this.logininfo.userId}?fields=id,name,gender,link,picture&type=large&access_token=${this.logininfo.token}`);
+    const myJson = await response.json();
+    console.log('-----> myjson: ', myJson);
+    this.user = myJson;
+  }*/
 }

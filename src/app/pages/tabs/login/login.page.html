@@ -7,7 +7,7 @@
           <form [formGroup]="form">
             <ion-list style="background-color: transparent;" lines="full" class="ion-no-margin ion-no-padding">
               <ion-item>
-                <img class="logo" src="../../../../assets/img/logo-bg-trans.png"/>
+                <img class="logo" src="../../../../assets/img/logo-bg-trans.png" />
               </ion-item>
               <ion-item>
                 <ion-label position="floating">Correo <ion-text color="danger">*</ion-text>
@@ -24,29 +24,46 @@
                 <app-field-error-display [displayError]="validatorComponent.isFieldInvalid(form.controls.password)"
                   [errorMsg]="validatorComponent.getFieldError(form.controls.password)"></app-field-error-display>
               </ion-item>
-                
+
             </ion-list>
-           
-            <div class="ion-padding">
-              <ion-button expand="block" (click)="signIn()" class="ion-no-margin">
-                Iniciar Sesión
-              </ion-button>
-            </div>
 
-            <div class="ion-padding a-register">
-              <a [routerLink]="['/register']">Registrarse con Gmail</a>
-            </div>
+            <ion-grid class="ion-align-items-center">
+              <ion-row>
+                <ion-col>
+                  <div class="ion-padding">
+                    <ion-button expand="block" (click)="signIn()" class="ion-no-margin">
+                      Iniciar Sesión
+                    </ion-button>
+                  </div>
+                  <div class="resend a-register">
+                    <p> <a [routerLink]="['/forgot-password']">He olvidado mi contraseña</a></p>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <div class="a-register">
+                    <div (click)="signInFb()" class="fb-login-button" >
+                      Iniciar con Facebook
+                    </div>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <div class="ion-padding a-register">
+                    <a [routerLink]="['/register']">Registro manual</a>
+                  </div>
+                  <div *ngIf="msgResend" class="ion-padding resend">
+                    <p>Si quieres que te enviemos nuevamente el correo de verificación da clic <u
+                        (click)="reSendMail()">aquí</u></p>
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
 
-            <div class="ion-padding a-register">
-              <a [routerLink]="['/register']">Registrarse con Facebook</a>
-            </div>
-
-            <div class="ion-padding a-register">
-              <a [routerLink]="['/register']">Registro manual</a>
-            </div>
-            <div *ngIf="msgResend" class="ion-padding resend">
-              <p>Si quieres que te enviemos nuevamente el correo de verificación da clic <u (click)="reSendMail()">aquí</u></p>
-            </div>
+            
+            
 
           </form>
         </div>

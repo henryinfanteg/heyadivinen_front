@@ -39,6 +39,10 @@ const routes: Routes = [
   {
     path: 'user-profile',
     loadChildren: () => import('./pages/tabs/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: () => import('./pages/tabs/forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
   }
 ];
 @NgModule({

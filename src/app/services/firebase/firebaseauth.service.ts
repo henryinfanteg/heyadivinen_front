@@ -44,6 +44,10 @@ export class FirebaseauthService {
     }
   }
 
+  async recoverPass(email) {
+    return await this.auth.sendPasswordResetEmail(email);
+  }
+
   stateAuth() {
     return this.auth.authState;
   }

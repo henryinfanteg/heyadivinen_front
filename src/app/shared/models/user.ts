@@ -9,6 +9,8 @@ export class User {
     status = true;
     creationDate = new Date();
     modifyDate: Date;
+    token: string;
+    methodAuth = 'manualAuth';
     parameters = 
         {
             countryPreference: 'CO',

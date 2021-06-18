@@ -44,7 +44,7 @@ export class RegisterPage implements OnInit {
 
   iniatializeForm() {
     this.form = this.formBuilder.group({
-      country: [null, [Validators.required]],
+      country: ['CO', [Validators.required]],
       birthDate: [null, [Validators.minLength(2)]],
       email: [null, Validators.compose([Validators.required, Validators.pattern(Config.validEmail)])],
       password: [null, Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern(Config.validPassword)])],

@@ -11,7 +11,7 @@ import { User } from 'src/app/shared/models/user';
 import { Parameters } from 'src/app/shared/parameters';
 import { HandlerErrorService } from 'src/app/services/handler-error.service';
 import { ValidatorComponentUtil } from 'src/app/shared/util/validator-component-util';
-import { shareReplay } from 'rxjs/operators';
+import { Plugins } from '@capacitor/core';
 
 @Component({
   selector: 'app-login',
@@ -89,6 +89,26 @@ export class LoginPage implements OnInit, OnDestroy {
     }, err => {
       this.toastService.presentToast(Parameters.sendMessageErrorService, Parameters.durationToastThree, Parameters.colorError);
     });
+  }
+
+  async signInFb(): Promise<void> {
+    const FACEBOOK_PERMISSIONS = ['public_profile', 'email'];
+
+    const result = await Plugins.FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
+    if (result && result.accessToken) {
+      console.log('logueado por fbbbbbb');
+      let usr = new User();
+      usr.token = result.accessToken.token;
+      usr.uid = result.accessToken.userId;
+      usr.methodAuth = Parameters.facebookMethodAuth;
+      /*let navigationExtras: NavigationExtras = {
+        queryParams: {
+          userinfo: JSON.stringify(usr)
+        }
+      };*/
+      this.storageService.userEvent.emit(usr);
+      // this.router.navigate(["/home"], navigationExtras);
+    }
   }
 
 }

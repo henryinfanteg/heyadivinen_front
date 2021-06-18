@@ -13,6 +13,7 @@ export class Parameters {
     static logsLevelInfo = 'INFO';
     static logsLevelError = 'ERROR';
     static logsMessageUserCreated = 'USER CREATED';
+    static logsMessageEmailRecoverSent = 'RECOVER EMAIL SENT';
     static logsMessageEmailVerificationSent = 'VERIFICATION EMAIL SENT';
     static logsMessageGetCreated = 'GET USER';
     static logsMessageUserSignUp = 'USER SIGN UP';
@@ -29,6 +30,7 @@ export class Parameters {
     static methodNameLogOut = 'logout';
     static methodNameSendMessage = 'sendMessage';
     static methodNameUpdateUserParams = 'updateUserParams';
+    static methodNameRecoverPass = 'recoverPass';
 
     static statusCodeCreate = 201;
     static statusCodeSuccess = 200;
@@ -43,6 +45,10 @@ export class Parameters {
 
     static messageSent = 'Mensaje enviado';
     static suggestionSent = 'Sugerencia enviada';
+
+    // AUTH METHODS
+    static facebookMethodAuth = 'facebookAuth';
+    static googleMethodAuth = 'googleAuth';
 
 
     // ERRRORS
@@ -65,5 +71,6 @@ export class Parameters {
     static colorSuccess = 'success';
 
     static msgMailSentSuccess = 'Hemos enviado nuevamente el correo de verificación';
+    static msgMailRecoverSentSuccess = 'Hemos enviado el correo de recuperación de contraseña';
     static msgUpdateParamsUserSuccess = 'Se ha guardado la configuración correctamente';
 }

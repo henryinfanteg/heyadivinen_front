@@ -16,15 +16,14 @@
                   <app-field-error-display [displayError]="validatorComponent.isFieldInvalid(form.controls.email)"
                     [errorMsg]="validatorComponent.getFieldError(form.controls.email)"></app-field-error-display>
                 </ion-item>
-                  
+                <ion-item>
+                  <ion-label position="floating">Fecha de Nacimiento <ion-text color="danger">*</ion-text>
+                  </ion-label>
+                  <ion-datetime displayFormat="MMM DD YYYY" formControlName="birthDate" required></ion-datetime>
+                  <app-field-error-display [displayError]="validatorComponent.isFieldInvalid(form.controls.birthDate)"
+                    [errorMsg]="validatorComponent.getFieldError(form.controls.birthDate)"></app-field-error-display>
+                </ion-item>
               </ion-list>
-             
-              <div class="ion-padding">
-                <ion-button expand="block" (click)="save()" class="ion-no-margin">
-                  Guardar
-                </ion-button>
-              </div>
-  
             </form>
           </div>
         </ion-col>
