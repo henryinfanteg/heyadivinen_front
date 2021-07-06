@@ -1,4 +1,6 @@
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { formatDate } from '@angular/common';
+import { AbstractControl, FormControl, FormGroup, Validators, ValidationErrors, ValidatorFn } from '@angular/forms';
+import moment from 'moment';
 
 export class ValidatorComponentUtil {
 
@@ -30,6 +32,8 @@ export class ValidatorComponentUtil {
             message = `Mínimo ${fieldControl.errors.minlength.requiredLength} caracteres`;
         } else if (fieldControl.hasError('maxlength')) {
             message = `Máximo ${fieldControl.errors.maxlength.requiredLength} caracteres`;
+        } else if(fieldControl.hasError('noAge')) {
+            message = `Debes tener mínimo 13 años para registrarte`;
         } else if (fieldControl.hasError('pattern')) {
             if (fieldType && fieldType.includes('email')) {
                 message = 'Debe tener un formato de email';
@@ -60,5 +64,31 @@ export class ValidatorComponentUtil {
             }
         });
     }
+
+   static minimumAge(age:number, matchingControlName: string) {
+        return (formGroup: FormGroup) => {
+            const matchingControl = formGroup.controls[matchingControlName];
+            let dateB = new Date(formatDate(formGroup.controls[matchingControlName].value, 'yyyy-MM-dd', 'en-US'));
+            if (formGroup.controls[matchingControlName].valid) {
+              // carefull, moment months range is from 0 to 11
+              const value: { year: string, month: string, day: string } = {
+                year: dateB.getFullYear() + '',
+                month: dateB.getMonth() + '',
+                day: dateB.getDate() + '',
+              };
+              const date = moment({ year: +value.year, month: (+value.month) - 1, day: +value.day }).startOf('day');
+              if (date.isValid()) {
+                // https://momentjs.com/docs/#/displaying/difference/
+                const now = moment().startOf('day');
+                const yearsDiff = date.diff(now, 'years');
+                if (yearsDiff > -age) {
+                    matchingControl.setErrors({ noAge: true });
+                } else {
+                    matchingControl.setErrors(null);
+                }
+              }
+            }
+          };
+      }
 
 }

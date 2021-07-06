@@ -49,12 +49,16 @@
                 <app-field-error-display [displayError]="validatorComponent.isFieldInvalid(form.controls.confirmPassword)"
                   [errorMsg]="validatorComponent.getFieldError(form.controls.confirmPassword)"></app-field-error-display>
               </ion-item>
+              <ion-item>
+                <ion-label>valid: {{form.valid}}</ion-label>
+              </ion-item>
             </ion-list>
-
+           
             <div class="ion-padding">
               <ion-button expand="block" (click)="signUp()" class="ion-no-margin">
                 Registrarse
               </ion-button>
+              
             </div>
           </form>
         </div>
