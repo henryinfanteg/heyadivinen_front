@@ -9,7 +9,7 @@ import { Parameters } from 'src/app/shared/parameters';
 import { StorageService } from 'src/app/core/services/_service-util/storage.service';
 import { HandlerErrorService } from 'src/app/services/handler-error.service';
 import { LoggerService } from 'src/app/services/logger.service';
-import { User } from 'src/app/shared/models/user';
+import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
 
 @Component({
   selector: 'app-categories',
@@ -19,9 +19,10 @@ import { User } from 'src/app/shared/models/user';
 export class CategoriesPage implements OnInit, OnDestroy {
 
   templateRetry = false;
+  isLoading = false;
+  templateCurrent = 'categories';
 
   categories = [];
-  user = this.storageService.getUser();
 
   categoryTest = {
     createDate: null,
@@ -43,19 +44,16 @@ export class CategoriesPage implements OnInit, OnDestroy {
     private toastService: ToastService,
     private storageService: StorageService,
     private loggerService: LoggerService,
-    private handlerError: HandlerErrorService
-    //, private loaderService: LoaderService
-  ) {
-    this.storageService.userEvent.subscribe((usr: User) => {
-      this.user = usr;
-    });
-  }
+    private handlerError: HandlerErrorService,
+    private loaderService: LoaderService
+  ) {}
   ngOnDestroy(): void {
     this.storageService.userEvent.unsubscribe();
     this.getAllCategories$.unsubscribe();
   }
 
   ngOnInit() {
+    // this.isLoading = true;
     this.getAllCategories();
   }
 
@@ -72,12 +70,18 @@ export class CategoriesPage implements OnInit, OnDestroy {
   }
 
   getAllCategories() {
+    // this.loaderService.present();
+    this.isLoading = true;
     this.getAllCategories$ = this.firestoreService.getCollection(Parameters.pathCategories).subscribe(resp => {
+      // this.loaderService.dismiss();
+      this.isLoading = false;
       // PENSAR SI BASTA CON EL ARRAY DE CATEGORIAS EN EL SESSION STORAGE
       this.categories = resp;
       this.storageService.setCategories(resp);
       // this.loggerService.logResponse(JSON.stringify(resp), Parameters.methodNameGetAllCategories, this.user.username, this.user.uid, Parameters.logsMessageUserGetAllCategories, Parameters.statusCodeSuccess, null, Parameters.pathCategories);
     }, err => {
+      this.isLoading = false;
+      // this.loaderService.dismiss();
       // this.loggerService.loggerError(null, Parameters.methodNameGetAllCategories, this.user.username, this.user.uid, err, Parameters.pathCategories);
       this.handlerError.errorCategories(err.code);
     });
@@ -85,7 +89,6 @@ export class CategoriesPage implements OnInit, OnDestroy {
 
   showInstructions(cat) {
     cat = this.categoryTest;
-
     const navigationExtras: NavigationExtras = {
       state: {
         categoria: cat
@@ -93,7 +96,6 @@ export class CategoriesPage implements OnInit, OnDestroy {
     };
     this.router.navigate(['/home/instructions'], navigationExtras);
   }
-
   
 }
 

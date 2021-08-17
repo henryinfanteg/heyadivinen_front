@@ -10,7 +10,7 @@ import { BoardPage } from '../board/board.page';
 import { HomePage } from './home.page';
 import { RetryRequestComponent } from 'src/app/components/retry-request/retry-request.component';
 import { FieldErrorDisplayComponent } from 'src/app/components/field-error-display/field-error-display.component';
-
+import { SkeletonListComponent } from 'src/app/components/skeleton-list/skeleton-list.component';
 
 @NgModule({
   imports: [
@@ -25,6 +25,6 @@ import { FieldErrorDisplayComponent } from 'src/app/components/field-error-displ
       { path: '**', redirectTo: 'categories' }
     ])
   ],
-  declarations: [HomePage, FieldErrorDisplayComponent, InstructionsPage, CategoriesPage, BoardPage, ResultsPage, RetryRequestComponent]
+  declarations: [HomePage, FieldErrorDisplayComponent, InstructionsPage, CategoriesPage, BoardPage, ResultsPage, RetryRequestComponent, SkeletonListComponent]
 })
 export class HomePageModule {}

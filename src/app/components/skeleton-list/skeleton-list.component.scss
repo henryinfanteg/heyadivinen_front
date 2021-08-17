@@ -1,0 +1,31 @@
+ion-grid {
+    height: 100%;
+    margin: 10px 5px 0 5px;
+}
+
+ion-row {
+    height: 100%;
+}
+
+ion-thumbnail {
+    height: 15rem;
+    width: 100%;
+}
+
+ion-item {
+    height: 100%;
+}
+
+.col-icon-ctg {
+    height: 30%;
+    cursor: pointer;
+}
+
+.grid-ctg {
+    max-height: 100%;
+    justify-content: center;
+}
+
+ion-skeleton-text {
+    height: 100%;
+}

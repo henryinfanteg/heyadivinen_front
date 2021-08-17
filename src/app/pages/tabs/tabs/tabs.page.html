@@ -1,17 +1,10 @@
 <ion-tabs>
   <!--{{user | json}}-->
   <ion-tab-bar slot="bottom">
-   <ion-tab-button tab="home" *ngIf="user && user.uid !== undefined; else menuElse">
+   <ion-tab-button tab="home">
       <ion-icon name="home"></ion-icon>
       <ion-label>Inicio</ion-label>
     </ion-tab-button>
-    <ng-template #menuElse>
-      <ion-tab-button tab="login">
-        <ion-icon name="log-in-outline"></ion-icon>
-        <ion-label>Inicio</ion-label>
-      </ion-tab-button>
-    </ng-template>
-    
 
     <ion-tab-button tab="settings">
       <ion-icon name="settings"></ion-icon>

@@ -1,0 +1,7 @@
+<ion-grid *ngIf="template === 'categories'">
+  <ion-row class="grid-ctg">
+    <ion-col class="col-icon-ctg" size="6" *ngFor="let i of arrayItCounts(itCounts).fill(1)">
+      <ion-skeleton-text animated></ion-skeleton-text>
+    </ion-col>
+  </ion-row>
+</ion-grid>

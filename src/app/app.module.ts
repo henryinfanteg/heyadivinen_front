@@ -8,8 +8,6 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DetailService } from './core/services/_service-util/detail.service';
-import { SQLiteService } from './core/services/_service-util/sqlite.service';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -19,7 +17,7 @@ import { TabsPage } from './pages/tabs/tabs/tabs.page';
 import { LoggerService } from './services/logger.service';
 import { HandlerErrorService } from './services/handler-error.service';
 import { HeaderComponent } from './components/header/header.component';
-// import { LoaderService } from 'src/app/core/services/_service-util/loader.service';
+import { LoaderService } from './core/services/_service-util/loader.service';
 // import { NotifylUtil } from 'src/app/shared/util/notify-util';
 
 @NgModule({
@@ -37,10 +35,8 @@ import { HeaderComponent } from './components/header/header.component';
     AngularFireAuthModule
   ],
   providers: [
-    // LoaderService,
+    LoaderService,
     // NotifylUtil,
-    SQLiteService,
-    DetailService,
     ToastService,
     LoggerService,
     HandlerErrorService,

@@ -51,4 +51,8 @@ export class FirebaseauthService {
   stateAuth() {
     return this.auth.authState;
   }
+
+  async signInAnonymously() {
+    return await this.auth.signInAnonymously();
+  }
 }

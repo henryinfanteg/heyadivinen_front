@@ -1,5 +1,7 @@
+import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-/*
+
+@Injectable({ providedIn: 'root' })
 export class LoaderService {
 
     isLoading = false;
@@ -22,5 +24,3 @@ export class LoaderService {
       return await this.loadingController.dismiss().then();
     }
 }
-
-*/
